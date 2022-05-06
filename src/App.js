@@ -92,13 +92,13 @@ const App = () => {
         <div className='App'>
             <NavBar user={user} />
             <Routes>
-                <Route path='/articles/:id' element={<Article />} />
-                <Route path='/articles' element={<Articles />} />
-                <Route path='/users/:id' element={<User />} />
-                <Route path='/login' element={<Login />} />
-                <Route path='/add' element={<AddArticleForm />} />
-                <Route path='/users' element={<Users />} />
-                <Route path='/search' element={<Search />} />
+                <Route path='/Articles/:id' element={<Article />} />
+                <Route path='/Articles' element={<Articles />} />
+                <Route path='/Users/:id' element={<User />} />
+                <Route path='/Login' element={<Login />} />
+                <Route path='/Add' element={<AddArticleForm />} />
+                <Route path='/Users' element={<Users />} />
+                <Route path='/Search' element={<Search />} />
                 <Route path='/' element={<Home />} />
             </Routes>
         </div>
