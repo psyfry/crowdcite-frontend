@@ -96,7 +96,12 @@ const App = () => {
                 <Route path='/Articles' element={<Articles />} />
                 <Route path='/Users/:id' element={<User />} />
                 <Route path='/Login' element={<Login />} />
-                <Route path='/Add' element={<AddArticleForm />} />
+                <Route
+                    path='/Add'
+                    element={
+                        <AddArticleForm createArticle={handleAddArticle} />
+                    }
+                />
                 <Route path='/Users' element={<Users />} />
                 <Route path='/Search' element={<Search />} />
                 <Route path='/' element={<Home />} />
