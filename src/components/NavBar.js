@@ -12,7 +12,7 @@ import Button from '@mui/material/Button'
 import MenuItem from '@mui/material/MenuItem'
 
 const NavBar = ({ user, handleSignout }) => {
-    const pages = [ 'Add', 'Articles', 'Watchlist' ]
+    const pages = [ 'Add', 'Articles', 'Watchlist', 'Search' ]
     const [ anchorElNav, setAnchorElNav ] = React.useState(null)
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget)
@@ -20,7 +20,7 @@ const NavBar = ({ user, handleSignout }) => {
     const handleCloseNavMenu = () => {
         setAnchorElNav(null)
     }
-    //console.log({ user })
+    console.log({ user })
 
     return (
         <AppBar position='static'>
@@ -136,12 +136,12 @@ const NavBar = ({ user, handleSignout }) => {
                     <Box sx={{ flexGrow: 0 }}>
                         {user === null ? (<Button color='inherit' id='login' href={'/login'}>
                             Login
-                        </Button>) : (<Button color='inherit' id='logout' onClick={handleSignout}>Signout</Button>)}
+                        </Button>) : (<Button color='inherit' id='logout' onClick={handleSignout}>{user.username} | Sign out</Button>)}
 
                     </Box>
                 </Toolbar>
             </Container>
-        </AppBar>
+        </AppBar >
     )
 }
 

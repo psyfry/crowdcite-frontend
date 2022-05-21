@@ -4,6 +4,8 @@ import { useDispatch } from 'react-redux'
 import { createComment } from '../reducers/articleReducer'
 import Box from '@mui/material/Card'
 import SendIcon from '@mui/icons-material/Send'
+import Stack from '@mui/material/Stack';
+
 const AddComment = ({ id, user }) => {
     console.log({ user });
     const dispatch = useDispatch()
@@ -17,11 +19,13 @@ const AddComment = ({ id, user }) => {
     return (
         <Box sx={{ maxWidth: 400 }}>
             <form onSubmit={handleComment}>
-                <TextField
-                    onChange={({ target }) => setComment(target.value)}
-                    value={comment}
-                />
-                <Button type='submit' variant='contained' endIcon={<SendIcon />}>Comment</Button>
+                <Stack direction='row' spacing={1}>
+                    <TextField
+                        onChange={({ target }) => setComment(target.value)}
+                        value={comment}
+                    />
+                    <Button type='submit' variant='contained' endIcon={<SendIcon />}>Comment</Button>
+                </Stack>
             </form>
         </Box>
     )
