@@ -25,11 +25,12 @@ const addArticle = async (newArticle) => {
     return response.data
 }
 
-const likeArticle = async (id, articleObj) => {
+const watchArticle = async (id, username) => {
     const config = {
         headers: { Authorization: token }
     }
-    const response = await axios.put(`${baseUrl}/${id}`, articleObj, config)
+    console.log({ id });
+    const response = await axios.put(`${baseUrl}/${id}/watch`, username, config)
     return response.data
 }
 
@@ -54,7 +55,7 @@ export default {
     getArticles,
     getArticle,
     setToken,
-    likeArticle,
+    watchArticle,
     deleteArticle,
     addComment
 }

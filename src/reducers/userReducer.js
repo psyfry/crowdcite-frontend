@@ -1,5 +1,5 @@
 //import login from '../services/login'
-
+//import userService from "../services/userService"
 //Action Creators
 
 export const setUser = (user) => {
@@ -13,12 +13,15 @@ export const setUser = (user) => {
 }
 
 export const signOut = () => {
-    return async (dispatch) => {
+    return (dispatch) => {
         dispatch({
             type: 'SIGN_OUT'
         })
     }
 }
+/* export const createUser = () => {
+    
+} */
 const userReducer = (state = null, action) => {
     switch (action.type) {
         case 'SET_USER':

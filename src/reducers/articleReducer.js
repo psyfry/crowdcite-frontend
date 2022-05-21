@@ -22,6 +22,20 @@ export const createArticle = (content) => {
         })
     }
 }
+export const toggleWatchlist = (id) => {
+    return async (dispatch) => {
+        const watchedArticle = await articleService.toggleWatchlist(id)
+        dispatch({
+            type: 'WATCH',
+            data: watchedArticle
+        })
+        const articles = await articleService.getArticles()
+        dispatch({
+            type: 'INIT_ARTICLES',
+            data: articles
+        })
+    }
+}
 
 export const deleteArticle = (id) => {
     return async (dispatch) => {
@@ -58,7 +72,7 @@ const articleReducer = (state = [], action) => {
             return action.data
         }
         case 'ADD_ARTICLE': {
-            return [...state, action.data]
+            return [ ...state, action.data ]
         }
         case 'DELETE_ARTICLE': {
             const id = action.data.id

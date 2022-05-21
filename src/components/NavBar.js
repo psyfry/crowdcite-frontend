@@ -11,16 +11,16 @@ import Button from '@mui/material/Button'
 //import Tooltip from '@mui/material/Tooltip'
 import MenuItem from '@mui/material/MenuItem'
 
-const NavBar = ({ user }) => {
-    const pages = ['Add', 'Articles', 'Users']
-    const [anchorElNav, setAnchorElNav] = React.useState(null)
+const NavBar = ({ user, handleSignout }) => {
+    const pages = [ 'Add', 'Articles', 'Watchlist' ]
+    const [ anchorElNav, setAnchorElNav ] = React.useState(null)
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget)
     }
     const handleCloseNavMenu = () => {
         setAnchorElNav(null)
     }
-    console.log({ user })
+    //console.log({ user })
 
     return (
         <AppBar position='static'>
@@ -114,7 +114,7 @@ const NavBar = ({ user }) => {
                             flexGrow: 1,
                             display: { xs: 'none', md: 'flex' }
                         }}>
-                        {user ? (
+                        {user !== null ? (
                             pages.map((page) => (
                                 <Button
                                     key={page}
@@ -134,9 +134,10 @@ const NavBar = ({ user }) => {
                         )}
                     </Box>
                     <Box sx={{ flexGrow: 0 }}>
-                        <Button color='inherit' id='login' href={'/login'}>
+                        {user === null ? (<Button color='inherit' id='login' href={'/login'}>
                             Login
-                        </Button>
+                        </Button>) : (<Button color='inherit' id='logout' onClick={handleSignout}>Signout</Button>)}
+
                     </Box>
                 </Toolbar>
             </Container>
