@@ -2,7 +2,7 @@ import { TextField, Button } from '@mui/material'
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { createComment } from '../reducers/articleReducer'
-import Card from '@mui/material/Card'
+import Box from '@mui/material/Card'
 import SendIcon from '@mui/icons-material/Send'
 const AddComment = ({ id, user }) => {
     console.log({ user });
@@ -15,7 +15,7 @@ const AddComment = ({ id, user }) => {
     }
 
     return (
-        <Card sx={{ maxWidth: 400 }}>
+        <Box sx={{ maxWidth: 400 }}>
             <form onSubmit={handleComment}>
                 <TextField
                     onChange={({ target }) => setComment(target.value)}
@@ -23,7 +23,7 @@ const AddComment = ({ id, user }) => {
                 />
                 <Button type='submit' variant='contained' endIcon={<SendIcon />}>Comment</Button>
             </form>
-        </Card>
+        </Box>
     )
 }
 

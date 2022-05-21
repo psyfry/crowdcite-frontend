@@ -65,7 +65,7 @@ export default function Article({ id, title, dateCreated, author, url, descripti
                     <Typography>Publisher: {publisher}</Typography>
                     <Typography>DOI: {doi}</Typography>
                 </Box>
-                <Typography>{/*tags !== '' ? <Tags tags={tags} /> : <></>*/}</Typography>
+                <Typography>{<Tags tags={tags} isDeletable='false' />}</Typography>
             </CardContent>
             <CardActions disableSpacing>
                 <IconButton aria-label="add to watchlist">
