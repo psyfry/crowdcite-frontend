@@ -3,7 +3,6 @@ import Article from './Article'
 import { Box } from '@mui/material'
 import Stack from '@mui/material/Stack';
 const Articles = ({ articles, user, toggleWatchlist }) => {
-    console.log({ articles })
     if (!user) {
         return null
     }

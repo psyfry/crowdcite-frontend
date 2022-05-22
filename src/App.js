@@ -9,7 +9,7 @@ import {
 import { setErrorMessage } from './reducers/noticeReducer'
 import { setUser, signOut } from './reducers/userReducer'
 import { getUserList } from './reducers/userListReducer'
-import { getWatchlist } from './reducers/watchlistReducer'
+import { getWatchlist, toggleWatched } from './reducers/watchlistReducer'
 import loginService from './services/login'
 import articleService from './services/articleService'
 import userService from './services/userService'
@@ -106,8 +106,7 @@ const App = () => {
     }
     const toggleWatchlist = async (articleId) => {
         try {
-            await articleService.watchArticle(articleId, user.username)
-            dispatch(setErrorMessage("Added to Watchlist", 5))
+            dispatch(toggleWatched(articleId, user.username))
         } catch (exception) {
             dispatch(setErrorMessage("Error: Toggle Watchlist Failed", 5))
         }

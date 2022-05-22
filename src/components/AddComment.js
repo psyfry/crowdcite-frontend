@@ -7,7 +7,6 @@ import Box from '@mui/material/Card'
 import Stack from '@mui/material/Stack';
 import AddCommentIcon from '@mui/icons-material/AddComment';
 const AddComment = ({ id, user }) => {
-    console.log({ user });
     const dispatch = useDispatch()
     const [ comment, setComment ] = useState('')
     const handleComment = (event) => {

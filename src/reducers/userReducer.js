@@ -3,7 +3,6 @@
 //Action Creators
 
 export const setUser = (user) => {
-    console.log('userObj action:', user)
     return async (dispatch) => {
         dispatch({
             type: 'SET_USER',

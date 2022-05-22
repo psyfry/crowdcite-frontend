@@ -28,6 +28,10 @@ const watchlistReducer = (state = [], action) => {
     switch (action.type) {
         case 'GET_WATCHLIST':
             return action.data
+        case 'TOGGLE_WATCH':
+            const id = action.data.id
+            const returnedArticle = action.data
+            return state.map(x => x.id !== id ? x : returnedArticle)
         default: {
             return state
         }

@@ -29,7 +29,6 @@ const watchArticle = async (id, username) => {
     const config = {
         headers: { Authorization: token }
     }
-    console.log({ id });
     const response = await axios.put(`${baseUrl}/${id}/watch`, username, config)
     return response.data
 }
@@ -45,13 +44,10 @@ const addComment = async (id, comment) => {
     const commentObj = {
         comments: comment
     }
-    console.log(commentObj)
     const response = await axios.put(`${baseUrl}/comment/${id}`, commentObj)
-    console.log(response.data)
     return response
 }
 const getWatchlist = async () => {
-    console.log({ token });
     const config = {
         headers: { 'Authorization': token }
     }

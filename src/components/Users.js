@@ -10,7 +10,6 @@ const Users = ({ userList }) => {
         useEffect(() => {
             dispatch(getUserList())
         }, [ dispatch ]) */
-    console.log(userList)
     if (!userList) {
         return null
     }

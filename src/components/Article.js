@@ -39,7 +39,6 @@ export default function Article({ id, title, dateCreated, author, url, descripti
     };
     const handleAddWatchlist = () => {
         const articleId = id
-        console.log({ articleId });
         toggleWatchlist(articleId)
     }
     return (

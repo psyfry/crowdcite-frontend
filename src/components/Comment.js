@@ -6,8 +6,7 @@ import Avatar from '@mui/material/Avatar';
 import Divider from '@mui/material/Divider';
 //import { red, blue, green, purple } from '@mui/material/colors';
 const Comment = ({ displayName, commentText }) => {
-    console.log({ displayName });
-    console.log({ commentText });
+
     return <Card sx={{ maxWidth: 400 }}>
         <CardHeader
             avatar={

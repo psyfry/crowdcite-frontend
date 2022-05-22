@@ -7,7 +7,7 @@ import Card from '@mui/material/Card';
 import { Typography } from '@mui/material'
 import Divider from '@mui/material/Divider';
 const CommentBox = ({ id, comments, user }) => {
-    console.log({ user });
+
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(initializeArticles())

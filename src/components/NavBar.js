@@ -20,7 +20,6 @@ const NavBar = ({ user, handleSignout }) => {
     const handleCloseNavMenu = () => {
         setAnchorElNav(null)
     }
-    console.log({ user })
 
     return (
         <AppBar position='static'>
