@@ -2,7 +2,7 @@
 import axios from 'axios'
 const baseUrl = 'http://localhost:3030/api/articles'
 let token = null
-
+const watchlistUrl = 'http://localhost:3030/api/watchlist'
 const setToken = (newToken) => {
     token = `bearer ${newToken}`
 }
@@ -50,6 +50,14 @@ const addComment = async (id, comment) => {
     console.log(response.data)
     return response
 }
+const getWatchlist = async () => {
+    console.log({ token });
+    const config = {
+        headers: { 'Authorization': token }
+    }
+    const response = await axios.get(`${watchlistUrl}`, config)
+    return response.data
+}
 export default {
     addArticle,
     getArticles,
@@ -57,5 +65,5 @@ export default {
     setToken,
     watchArticle,
     deleteArticle,
-    addComment
+    addComment, getWatchlist
 }

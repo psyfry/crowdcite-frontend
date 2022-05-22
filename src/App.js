@@ -9,6 +9,7 @@ import {
 import { setErrorMessage } from './reducers/noticeReducer'
 import { setUser, signOut } from './reducers/userReducer'
 import { getUserList } from './reducers/userListReducer'
+import { getWatchlist } from './reducers/watchlistReducer'
 import loginService from './services/login'
 import articleService from './services/articleService'
 import userService from './services/userService'
@@ -30,15 +31,15 @@ const App = () => {
     const errorMessage = useSelector((state) => state.errorMessage)
     const user = useSelector((state) => state.user)
     const userList = useSelector((state) => state.userList)
+    const watchlist = useSelector((state) => state.watchlist)
     const [ username, setUsername ] = useState('')
     const [ password, setPassword ] = useState('')
-    //const [watch, setCurrentUser] = useState('')
     const dispatch = useDispatch()
     const addArticleRef = useRef()
     useEffect(() => {
         dispatch(initializeArticles())
     }, [ dispatch ])
-    console.log({ userList });
+
     useEffect(() => {
         const loggedUser = window.localStorage.getItem('articleListUser')
         if (loggedUser) {
@@ -50,9 +51,11 @@ const App = () => {
 
     useEffect(() => {
         dispatch(getUserList())
+    }, [ dispatch ])
 
-    }, [])
-
+    useEffect(() => {
+        dispatch(getWatchlist())
+    }, [ dispatch ])
     const handleAddArticle = (articleObj) => {
         if (articleObj.title !== '' && articleObj.url !== '') {
             try {
@@ -117,7 +120,7 @@ const App = () => {
                 <Route path='/Articles/:id' element={<Article handleAddWatchlist={toggleWatchlist} />} />
                 <Route path='/Articles' element={<Articles articles={articles} user={user} toggleWatchlist={toggleWatchlist} />} />
                 <Route path='/Users/:id' element={<User />} />
-                <Route path='/Watchlist' element={<Watchlist user={user} />} />
+                <Route path='/Watchlist' element={<Watchlist watchlist={watchlist} user={user} toggleWatchlist={toggleWatchlist} />} />
                 <Route path='/Login' element={<Login handleLogin={handleLogin} handleUsername={({ target }) => setUsername(target.value)}
                     handlePassword={({ target }) => setPassword(target.value)}
                     username={username}
@@ -129,7 +132,7 @@ const App = () => {
                         <AddArticleForm createArticle={handleAddArticle} />
                     }
                 />
-                <Route path='/Users' element={<Users users={userList} />} />
+                <Route path='/Users' element={<Users userList={userList} />} />
                 <Route path='/Search' element={<Search />} />
                 <Route path='/' element={<Home />} />
             </Routes>

@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
-import { TextField, Button, Card, CardHeader, Typography } from '@mui/material'
+import { TextField, Button, Card, Typography } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete'
-import SendIcon from '@mui/icons-material/Send'
+//import PublishIcon from '@mui/icons-material/Publish';
+//import SendIcon from '@mui/icons-material/Send'
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import Tags from './Tags'
 import Stack from '@mui/material/Stack';
 const AddArticleForm = ({ createArticle }) => {
@@ -116,7 +118,7 @@ const AddArticleForm = ({ createArticle }) => {
                     <br />
                     <Button
                         variant='contained'
-                        endIcon={<SendIcon />}
+                        endIcon={<CloudUploadIcon />}
                         type='submit'>
                         Submit
                     </Button>

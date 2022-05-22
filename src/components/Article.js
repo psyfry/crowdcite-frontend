@@ -16,7 +16,11 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Link } from '@mui/material';
 import CommentBox from './CommentBox'
 import Tags from './Tags';
+import Divider from '@mui/material/Divider';
 import { Box } from '@mui/system';
+
+//import FlagIcon from '@mui/icons-material/Flag';
+//import FlagCircleIcon from '@mui/icons-material/FlagCircle';
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
     return <IconButton {...other} />;
@@ -59,6 +63,7 @@ export default function Article({ id, title, dateCreated, author, url, descripti
                 <Typography variant="body2" color="text.secondary">
                     {description}
                 </Typography>
+                <Divider />
                 <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around' }}>
                     <Typography>Author: {author}</Typography>
                     <Typography>Pub. Date: {pubDate}</Typography>

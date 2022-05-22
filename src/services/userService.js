@@ -1,5 +1,10 @@
 /* eslint-disable import/no-anonymous-default-export */
 import axios from 'axios'
+//let token = null
+
+/* const setToken = (newToken) => {
+    token = `bearer ${newToken}`
+} */
 
 const baseUrl = 'http://localhost:3030/api/users'
 
@@ -13,12 +18,9 @@ const getUser = async (id) => {
     return response.data
 }
 
-const getWatchlist = async (id) => {
-    const response = await axios.get(`${baseUrl}/${id}/watchlist`)
-    return response.data
-}
+
 const createUser = async (newUser) => {
     const response = await axios.post(baseUrl, newUser)
     return response.data
 }
-export default { getUser, getUsers, getWatchlist, createUser }
+export default { getUser, getUsers, createUser }

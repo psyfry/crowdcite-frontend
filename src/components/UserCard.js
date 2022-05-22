@@ -7,7 +7,7 @@ import CardActions from '@mui/material/CardActions';
 import Collapse from '@mui/material/Collapse';
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
+//import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Box } from '@mui/system';
 const ExpandMore = styled((props) => {
@@ -31,17 +31,15 @@ export default function UserCard({ id, username, firstName, lastName, watchlist,
         <Card sx={{ maxWidth: 400 }}>
             <CardHeader
                 avatar={
-                    <Avatar sx={{ bgcolor: { avatarColor } }} aria-label="user">
+                    <Avatar sx={{ bgcolor: avatarColor }} aria-label="user">
                         {displayName}
                     </Avatar>
                 }
-                title={{ username }}
+                title={username}
                 subheader={fullName}
             />
             <CardContent>
-                <Typography variant="body2" color="text.secondary">
-                    Submissions
-                </Typography>
+
                 <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
                 </Box>
             </CardContent>
@@ -57,7 +55,11 @@ export default function UserCard({ id, username, firstName, lastName, watchlist,
             </CardActions>
             <Collapse in={expanded} timeout="auto" unmountOnExit>
                 <CardContent>
+                    {/*                <Typography variant="body2" color="text.secondary">
                     Submissions
+                </Typography>
+                    <Submissions articles={articles} />
+                    <Watchlist watchlist={watchlist} />*/}
                 </CardContent>
             </Collapse>
         </Card>

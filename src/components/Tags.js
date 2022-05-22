@@ -20,16 +20,18 @@ const Tags = ({ tags, handleDelete, isDeletable }) => {
             handleDelete(event.currentTarget)
         } */
     if (isDeletable === 'true') {
-        tagList = tags.map(x => <Chip
+        tagList = tags.map((x, index) => <Chip
             label={x}
             id={x}
+            key={`${x}${index}`}
             variant="outlined"
             color="primary"
             onDelete={handleDelete}
         />)
     } else {
-        tagList = tags.map(x => <Chip
+        tagList = tags.map((x, index) => <Chip
             label={x}
+            key={`${x}${index}`}
             component="a"
             href={`/api/tags/${x}`}
             variant="outlined"

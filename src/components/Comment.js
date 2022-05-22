@@ -1,8 +1,9 @@
 import React from 'react'
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
-import CardContent from '@mui/material/CardContent';
+//import CardContent from '@mui/material/CardContent';
 import Avatar from '@mui/material/Avatar';
+import Divider from '@mui/material/Divider';
 //import { red, blue, green, purple } from '@mui/material/colors';
 const Comment = ({ displayName, commentText }) => {
     console.log({ displayName });
@@ -15,7 +16,9 @@ const Comment = ({ displayName, commentText }) => {
                 </Avatar>
             }
             title={commentText.text}
+            subtitle={commentText.timestamp}
         />
+        <Divider variant="inset" />
     </Card>
 }
 

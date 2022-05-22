@@ -1,11 +1,14 @@
 import React from 'react'
+import Articles from './Articles'
+const Watchlist = ({ watchlist, user, toggleWatchlist }) => {
 
-const Watchlist = ({ watchlist }) => {
     if (!watchlist) {
         return null
     }
     return (
-        <div>Watchlist</div>
+        <div>Watchlist
+            <Articles articles={watchlist} user={user} toggleWatchlist={toggleWatchlist} />
+        </div>
     )
 }
 
