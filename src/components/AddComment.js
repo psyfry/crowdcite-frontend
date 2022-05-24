@@ -6,13 +6,12 @@ import Box from '@mui/material/Card'
 //import SendIcon from '@mui/icons-material/Send'
 import Stack from '@mui/material/Stack';
 import AddCommentIcon from '@mui/icons-material/AddComment';
-const AddComment = ({ id, user }) => {
+const AddComment = ({ id }) => {
     const dispatch = useDispatch()
     const [ comment, setComment ] = useState('')
     const handleComment = (event) => {
         event.preventDefault()
-        const timestamp = Date.now()
-        dispatch(createComment(id, { name: user.displayName, color: user.avatarColor, timestamp: timestamp, text: comment }))
+        dispatch(createComment(id, comment))
         setComment('')
     }
 

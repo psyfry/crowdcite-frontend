@@ -6,7 +6,7 @@ const CommentsList = ({ comments }) => {
         return null
     }
     return <div>
-        {comments.map((comment, index) => <Comment key={`${comment}${index}`} displayName={comment.displayName} commentText={comment} />)}
+        {comments.map((comment, index) => <Comment key={`${comment}${index}`} comment={comment} />)}
     </div>
 }
 

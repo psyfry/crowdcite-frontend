@@ -41,10 +41,13 @@ const deleteArticle = async (id) => {
     return response.data
 }
 const addComment = async (id, comment) => {
-    const commentObj = {
-        comments: comment
+    const config = {
+        headers: { Authorization: token }
     }
-    const response = await axios.put(`${baseUrl}/comment/${id}`, commentObj)
+    const commentObj = {
+        comment: comment
+    }
+    const response = await axios.put(`${baseUrl}/comment/${id}`, commentObj, config)
     return response
 }
 const getWatchlist = async () => {
@@ -54,6 +57,13 @@ const getWatchlist = async () => {
     const response = await axios.get(`${watchlistUrl}`, config)
     return response.data
 }
+const getTaggedArticles = async (tag) => {
+    const config = {
+        headers: { 'Authorization': token }
+    }
+    const response = await axios.get(`${baseUrl}/tags/${tag}`, config)
+    return response.data
+}
 export default {
     addArticle,
     getArticles,
@@ -61,5 +71,6 @@ export default {
     setToken,
     watchArticle,
     deleteArticle,
+    getTaggedArticles,
     addComment, getWatchlist
 }

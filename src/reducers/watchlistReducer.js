@@ -32,9 +32,8 @@ const watchlistReducer = (state = [], action) => {
             const id = action.data.id
             const returnedArticle = action.data
             return state.map(x => x.id !== id ? x : returnedArticle)
-        default: {
+        default:
             return state
-        }
     }
 }
 

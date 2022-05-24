@@ -12,7 +12,7 @@ import Button from '@mui/material/Button'
 import MenuItem from '@mui/material/MenuItem'
 
 const NavBar = ({ user, handleSignout }) => {
-    const pages = [ 'Add', 'Articles', 'Watchlist', 'Search' ]
+    const pages = [ 'Add', 'Articles', 'Watchlist' ]
     const [ anchorElNav, setAnchorElNav ] = React.useState(null)
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget)

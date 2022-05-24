@@ -2,17 +2,8 @@ import React from 'react'
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 const Tags = ({ tags, handleDelete, isDeletable }) => {
-    /*     const tagList = tags.map(x => <Chip
-            label={x}
-            component="a"
-            href={`/api/tags/${x}`}
-            variant="outlined"
-            color="primary"
-            onDelete={handleDelete}
-            clickable
-        />) */
     let tagList
-    if (!tags) {
+    if (!tags || tags.length === 0) {
         return null
     }
 
@@ -33,7 +24,6 @@ const Tags = ({ tags, handleDelete, isDeletable }) => {
             label={x}
             key={`${x}${index}`}
             component="a"
-            href={`/api/tags/${x}`}
             variant="outlined"
             color="primary"
             clickable

@@ -32,7 +32,7 @@ const ExpandMore = styled((props) => {
     }),
 }));
 
-export default function Article({ id, title, dateCreated, author, url, description, tags, watchlist, comments, doi, pubDate, publisher, user, displayName, toggleWatchlist, avatarColor }) {
+export default function Article({ id, title, dateCreated, author, url, description, tags, comments, doi, pubDate, publisher, displayName, toggleWatchlist, avatarColor, watchArray, user }) {
     const [ expanded, setExpanded ] = React.useState(false);
     const handleExpandClick = () => {
         setExpanded(!expanded);
@@ -41,13 +41,16 @@ export default function Article({ id, title, dateCreated, author, url, descripti
         const articleId = id
         toggleWatchlist(articleId)
     }
+    //const color = watchArray.includes(id) ? 'secondary' : 'action'
     return (
         <Card sx={{ maxWidth: '400px' }}>
             <CardHeader
                 avatar={
-                    <Avatar sx={{ bgcolor: avatarColor }} aria-label="article">
-                        {displayName}
-                    </Avatar>
+                    <IconButton aria-label='user' href={`api/users/${user}`}>
+                        <Avatar sx={{ bgcolor: avatarColor }} aria-label="article">
+                            {displayName}
+                        </Avatar>
+                    </IconButton>
                 }
                 action={
                     <IconButton aria-label="settings" href={`api/articles/${id}`}>
@@ -69,11 +72,11 @@ export default function Article({ id, title, dateCreated, author, url, descripti
                     <Typography>Publisher: {publisher}</Typography>
                     <Typography>DOI: {doi}</Typography>
                 </Box>
-                <Typography>{<Tags tags={tags} isDeletable='false' />}</Typography>
+                <Tags tags={tags} isDeletable='false' />
             </CardContent>
             <CardActions disableSpacing>
-                <IconButton aria-label="add to watchlist">
-                    <FavoriteIcon onClick={handleAddWatchlist} id={id} />
+                <IconButton aria-label="add to watchlist" onClick={handleAddWatchlist} id={id}>
+                    <FavoriteIcon />
                 </IconButton>
                 <IconButton aria-label="Comment">
                     <ShareIcon />
@@ -89,7 +92,7 @@ export default function Article({ id, title, dateCreated, author, url, descripti
             </CardActions>
             <Collapse in={expanded} timeout="auto" unmountOnExit>
                 <CardContent>
-                    <CommentBox id={id} comments={comments} user={user} />
+                    <CommentBox id={id} comments={comments} />
                 </CardContent>
             </Collapse>
         </Card >

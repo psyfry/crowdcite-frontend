@@ -6,7 +6,7 @@ import { initializeArticles } from '../reducers/articleReducer'
 import Card from '@mui/material/Card';
 import { Typography } from '@mui/material'
 import Divider from '@mui/material/Divider';
-const CommentBox = ({ id, comments, user }) => {
+const CommentBox = ({ id, comments }) => {
 
     const dispatch = useDispatch()
     useEffect(() => {
@@ -17,7 +17,7 @@ const CommentBox = ({ id, comments, user }) => {
             <Typography>Comments</Typography>
             <Divider />
             {!comments ? null : <CommentsList comments={comments} />}
-            <AddComment id={id} user={user} />
+            <AddComment id={id} />
         </Card>
     )
 }

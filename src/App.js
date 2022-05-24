@@ -17,7 +17,7 @@ import NavBar from './components/NavBar'
 import Home from './components/Home'
 import { Routes, Route } from 'react-router'
 import AddArticleForm from './components/AddArticleForm'
-import Articles from './components/Articles'
+//import Articles from './components/Articles'
 import Article from './components/Article'
 import Users from './components/Users'
 import User from './components/User'
@@ -26,6 +26,8 @@ import Search from './components/Search'
 import Watchlist from './components/Watchlist'
 import Notifications from './components/Notifications'
 import Signup from './components/Signup'
+import SearchResults from './components/SearchResults'
+import ArticleContainer from './components/ArticleContainer'
 const App = () => {
     const articles = useSelector((state) => state.articles)
     const errorMessage = useSelector((state) => state.errorMessage)
@@ -34,6 +36,8 @@ const App = () => {
     const watchlist = useSelector((state) => state.watchlist)
     const [ username, setUsername ] = useState('')
     const [ password, setPassword ] = useState('')
+    const [ watchArray, setWatchArray ] = useState([])
+    //const [ searchResults, setSeachResults ] = useState('')
     const dispatch = useDispatch()
     const addArticleRef = useRef()
     useEffect(() => {
@@ -55,6 +59,8 @@ const App = () => {
 
     useEffect(() => {
         dispatch(getWatchlist())
+        //const watchArr = watchlist.map(y => y.id)
+        //setWatchArray(watchArr)
     }, [ dispatch ])
     const handleAddArticle = (articleObj) => {
         if (articleObj.title !== '' && articleObj.url !== '') {
@@ -117,7 +123,7 @@ const App = () => {
             {errorMessage && <Notifications message={errorMessage} />}
             <Routes>
                 <Route path='/Articles/:id' element={<Article handleAddWatchlist={toggleWatchlist} />} />
-                <Route path='/Articles' element={<Articles articles={articles} user={user} toggleWatchlist={toggleWatchlist} />} />
+                <Route path='/Articles' element={<ArticleContainer articles={articles} user={user} toggleWatchlist={toggleWatchlist} watchArray={watchArray} />} />
                 <Route path='/Users/:id' element={<User />} />
                 <Route path='/Watchlist' element={<Watchlist watchlist={watchlist} user={user} toggleWatchlist={toggleWatchlist} />} />
                 <Route path='/Login' element={<Login handleLogin={handleLogin} handleUsername={({ target }) => setUsername(target.value)}
@@ -133,6 +139,7 @@ const App = () => {
                 />
                 <Route path='/Users' element={<Users userList={userList} />} />
                 <Route path='/Search' element={<Search />} />
+                <Route path='/search/:query' element={<SearchResults user={user} toggleWatchlist={toggleWatchlist} watchArray={watchArray} />} />
                 <Route path='/' element={<Home />} />
             </Routes>
         </div>
