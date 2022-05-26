@@ -3,9 +3,9 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { createComment } from '../reducers/articleReducer'
 import Box from '@mui/material/Card'
-//import SendIcon from '@mui/icons-material/Send'
 import Stack from '@mui/material/Stack';
 import AddCommentIcon from '@mui/icons-material/AddComment';
+
 const AddComment = ({ id }) => {
     const dispatch = useDispatch()
     const [ comment, setComment ] = useState('')
@@ -22,8 +22,9 @@ const AddComment = ({ id }) => {
                     <TextField
                         onChange={({ target }) => setComment(target.value)}
                         value={comment}
+                        size='small'
                     />
-                    <Button type='submit' variant='contained' endIcon={<AddCommentIcon />}>Comment</Button>
+                    <Button type='submit' variant='contained' size='medium' endIcon={<AddCommentIcon />}>Comment</Button>
                 </Stack>
             </form>
         </Box>

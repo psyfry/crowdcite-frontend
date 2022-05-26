@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import './App.css'
 import {
-    createArticle,
     deleteArticle,
     initializeArticles
 } from './reducers/articleReducer'
@@ -29,6 +28,7 @@ import Signup from './components/Signup'
 import SearchResults from './components/SearchResults'
 import ArticleContainer from './components/ArticleContainer'
 import { Dashboard } from '@mui/icons-material'
+
 const App = () => {
     const articles = useSelector((state) => state.articles)
     const errorMessage = useSelector((state) => state.errorMessage)
@@ -37,10 +37,9 @@ const App = () => {
     const watchlist = useSelector((state) => state.watchlist)
     const [ username, setUsername ] = useState('')
     const [ password, setPassword ] = useState('')
-    const [ watchArray, setWatchArray ] = useState([])
+    //const [ watchArray, setWatchArray ] = useState([])
     //const [ searchResults, setSeachResults ] = useState('')
     const dispatch = useDispatch()
-    const addArticleRef = useRef()
     useEffect(() => {
         dispatch(initializeArticles())
     }, [ dispatch ])
@@ -60,28 +59,27 @@ const App = () => {
 
     useEffect(() => {
         dispatch(getWatchlist())
-        //const watchArr = watchlist.map(y => y.id)
-        //setWatchArray(watchArr)
     }, [ dispatch ])
-    const handleAddArticle = (articleObj) => {
-        if (articleObj.title !== '' && articleObj.url !== '') {
-            try {
-                dispatch(createArticle(articleObj))
-                addArticleRef.current.toggleVisibility()
-                dispatch(
-                    setErrorMessage(
-                        `${articleObj.title} by ${articleObj.author} added`,
-                        5
+
+    /*     const handleAddArticle = (articleObj) => {
+            if (articleObj.title !== '' && articleObj.author !== '') {
+                try {
+                    dispatch(createArticle(articleObj))
+                    dispatch(
+                        setErrorMessage(
+                            `${articleObj.title} by ${articleObj.author} added`,
+                            5
+                        )
                     )
-                )
-            } catch (exception) {
-                dispatch(setErrorMessage('Error: Unhandled Exception', 10))
+                } catch (exception) {
+                    dispatch(setErrorMessage('Error: Unhandled Exception', 10))
+                }
+            } else {
+                dispatch(setErrorMessage('Error: Missing Required Fields', 10))
             }
-        } else {
-            dispatch(setErrorMessage('Error: Missing Required Fields', 10))
-        }
-        dispatch(initializeArticles())
-    }
+            dispatch(initializeArticles())
+        } */
+
     const handleLogin = async (event) => {
         event.preventDefault()
         try {
@@ -124,7 +122,7 @@ const App = () => {
             {errorMessage && <Notifications message={errorMessage} />}
             <Routes>
                 <Route path='/Articles/:id' element={<Article handleAddWatchlist={toggleWatchlist} />} />
-                <Route path='/Articles' element={<ArticleContainer articles={articles} user={user} toggleWatchlist={toggleWatchlist} watchArray={watchArray} />} />
+                <Route path='/Articles' element={<ArticleContainer articles={articles} user={user} toggleWatchlist={toggleWatchlist} />} />
                 <Route path='/Users/:id' element={<User />} />
                 <Route path='/Dashboard' element={<Dashboard articles={articles} user={user} toggleWatchlist={toggleWatchlist} />} />
                 <Route path='/Watchlist' element={<Watchlist watchlist={watchlist} user={user} toggleWatchlist={toggleWatchlist} />} />
@@ -136,12 +134,12 @@ const App = () => {
                 <Route
                     path='/Add'
                     element={
-                        <AddArticleForm createArticle={handleAddArticle} />
+                        <AddArticleForm />
                     }
                 />
                 <Route path='/Users' element={<Users userList={userList} />} />
                 <Route path='/Search' element={<Search />} />
-                <Route path='/search/:query' element={<SearchResults user={user} toggleWatchlist={toggleWatchlist} watchArray={watchArray} />} />
+                <Route path='/search/:query' element={<SearchResults user={user} toggleWatchlist={toggleWatchlist} />} />
                 <Route path='/' element={<Home />} />
             </Routes>
         </div>

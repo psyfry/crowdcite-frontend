@@ -10,15 +10,17 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 //import * from '@mui/material/colors';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
+import EditSharpIcon from '@mui/icons-material/EditSharp';
+import DeleteIcon from '@mui/icons-material/Delete';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
+import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 import { Link } from '@mui/material';
 import CommentBox from './CommentBox'
 import Tags from './Tags';
 import Divider from '@mui/material/Divider';
 import { Box } from '@mui/system';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteArticle } from '../reducers/articleReducer';
 //import FlagIcon from '@mui/icons-material/Flag';
 //import FlagCircleIcon from '@mui/icons-material/FlagCircle';
 const ExpandMore = styled((props) => {
@@ -34,12 +36,20 @@ const ExpandMore = styled((props) => {
 
 export default function Article({ id, title, dateCreated, author, url, description, tags, comments, doi, pubDate, publisher, displayName, toggleWatchlist, avatarColor, watchArray, user }) {
     const [ expanded, setExpanded ] = React.useState(false);
+    const currentUser = useSelector((state) => state.user)
+    const dispatch = useDispatch()
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
     const handleAddWatchlist = () => {
         const articleId = id
         toggleWatchlist(articleId)
+    }
+
+    const handleDelete = (event) => {
+        console.log('delete');
+        event.preventDefault()
+        dispatch(deleteArticle(id))
     }
     //const color = watchArray.includes(id) ? 'secondary' : 'action'
     return (
@@ -54,7 +64,7 @@ export default function Article({ id, title, dateCreated, author, url, descripti
                 }
                 action={
                     <IconButton aria-label="settings" href={`api/articles/${id}`}>
-                        <MoreVertIcon />
+                        <ArrowCircleRightIcon />
                     </IconButton>
                 }
                 title={title}
@@ -78,9 +88,15 @@ export default function Article({ id, title, dateCreated, author, url, descripti
                 <IconButton aria-label="add to watchlist" onClick={handleAddWatchlist} id={id}>
                     <FavoriteIcon />
                 </IconButton>
-                <IconButton aria-label="Comment">
-                    <ShareIcon />
-                </IconButton>
+                {user === currentUser.userId ? (
+                    <>
+                        <IconButton aria-label="Edit">
+                            <EditSharpIcon />
+                        </IconButton>
+                        <IconButton aria-label="Delete" onClick={handleDelete}>
+                            <DeleteIcon />
+                        </IconButton>
+                    </>) : <></>}
                 <ExpandMore
                     expand={expanded}
                     onClick={handleExpandClick}

@@ -22,6 +22,20 @@ export const createArticle = (content) => {
         })
     }
 }
+export const editArticle = (id, content) => {
+    return async (dispatch) => {
+        const edittedArticle = await articleService.editArticle(id, content)
+        dispatch({
+            type: 'EDIT_ARTICLE',
+            data: edittedArticle
+        })
+        const articles = await articleService.getArticles()
+        dispatch({
+            type: 'INIT_ARTICLES',
+            data: articles
+        })
+    }
+}
 export const toggleWatchlist = (id) => {
     return async (dispatch) => {
         const watchedArticle = await articleService.toggleWatchlist(id)
@@ -66,6 +80,7 @@ export const createComment = (id, comment) => {
     }
 }
 
+
 const articleReducer = (state = [], action) => {
     switch (action.type) {
         case 'INIT_ARTICLES': {
@@ -73,6 +88,11 @@ const articleReducer = (state = [], action) => {
         }
         case 'ADD_ARTICLE': {
             return [ ...state, action.data ]
+        }
+        case 'EDIT_ARTICLE': {
+            const id = action.data.id
+            const newArticleObj = action.data
+            return state.map(x => (x.id !== id ? x : newArticleObj))
         }
         case 'DELETE_ARTICLE': {
             const id = action.data.id
