@@ -14,7 +14,7 @@ const Filter = ({ handleFilter, filterQuery, filterType, handleFilterType }) => 
                 <TextField label="Filter" variant="standard"
                     id="filterInput"
                     onChange={handleFilter}
-                    value={filterQuery}
+                    value={filterQuery} size='small'
                 />
                 <FormControl>
                     <RadioGroup

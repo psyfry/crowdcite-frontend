@@ -28,6 +28,7 @@ import Notifications from './components/Notifications'
 import Signup from './components/Signup'
 import SearchResults from './components/SearchResults'
 import ArticleContainer from './components/ArticleContainer'
+import { Dashboard } from '@mui/icons-material'
 const App = () => {
     const articles = useSelector((state) => state.articles)
     const errorMessage = useSelector((state) => state.errorMessage)
@@ -125,6 +126,7 @@ const App = () => {
                 <Route path='/Articles/:id' element={<Article handleAddWatchlist={toggleWatchlist} />} />
                 <Route path='/Articles' element={<ArticleContainer articles={articles} user={user} toggleWatchlist={toggleWatchlist} watchArray={watchArray} />} />
                 <Route path='/Users/:id' element={<User />} />
+                <Route path='/Dashboard' element={<Dashboard articles={articles} user={user} toggleWatchlist={toggleWatchlist} />} />
                 <Route path='/Watchlist' element={<Watchlist watchlist={watchlist} user={user} toggleWatchlist={toggleWatchlist} />} />
                 <Route path='/Login' element={<Login handleLogin={handleLogin} handleUsername={({ target }) => setUsername(target.value)}
                     handlePassword={({ target }) => setPassword(target.value)}

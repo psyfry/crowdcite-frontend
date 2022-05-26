@@ -43,7 +43,7 @@ export default function Article({ id, title, dateCreated, author, url, descripti
     }
     //const color = watchArray.includes(id) ? 'secondary' : 'action'
     return (
-        <Card sx={{ maxWidth: '400px' }}>
+        <Card variant="outlined" sx={{ maxWidth: '400px' }}>
             <CardHeader
                 avatar={
                     <IconButton aria-label='user' href={`api/users/${user}`}>

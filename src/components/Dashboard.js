@@ -1,8 +1,17 @@
+import Stack from '@mui/material/Stack'
 import React from 'react'
-
-const Dashboard = () => {
+import ArticleContainer from './ArticleContainer'
+import Watchlist from './Watchlist'
+import Box from '@mui/material/Box'
+const Dashboard = ({ articles, user, toggleWatchlist, watchArray, watchlist }) => {
     return (
-        <div>Dashboard</div>
+        <Box sx={{ maxWidth: '800px' }}>
+            Dashboard
+            <Stack direction='row' spacing={0}>
+                <ArticleContainer articles={articles} user={user} toggleWatchlist={toggleWatchlist} watchArray={watchArray} />
+                <Watchlist watchlist={watchlist} user={user} toggleWatchlist={toggleWatchlist} />
+            </Stack>
+        </Box>
     )
 }
 

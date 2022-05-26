@@ -53,7 +53,7 @@ const AddArticleForm = ({ createArticle }) => {
         <Card sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
 
             <form onSubmit={addArticle}>
-                <Stack direction='column' spacing={1}>
+                <Stack direction='column' spacing={.5}>
                     <Typography>Add Article</Typography>
                     <TextField
                         id='title'
