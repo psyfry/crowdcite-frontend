@@ -53,7 +53,7 @@ export const toggleWatchlist = (id) => {
 
 export const deleteArticle = (id) => {
     return async (dispatch) => {
-        const deletedArticle = articleService.deleteArticle(id)
+        const deletedArticle = await articleService.deleteArticle(id)
         dispatch({
             type: 'DELETE_ARTICLE',
             data: deletedArticle

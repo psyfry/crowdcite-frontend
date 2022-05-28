@@ -45,6 +45,7 @@ export default function Article({ id, title, dateCreated, author, url, descripti
         const articleId = id
         toggleWatchlist(articleId)
     }
+    console.log({ user });
 
     const handleDelete = (event) => {
         console.log('delete');
@@ -56,8 +57,8 @@ export default function Article({ id, title, dateCreated, author, url, descripti
         <Card variant="outlined" sx={{ maxWidth: '400px' }}>
             <CardHeader
                 avatar={
-                    <IconButton aria-label='user' href={`api/users/${user}`}>
-                        <Avatar sx={{ bgcolor: avatarColor }} aria-label="article">
+                    <IconButton aria-label='user' >
+                        <Avatar sx={{ bgcolor: avatarColor }} aria-label="article contributor">
                             {displayName}
                         </Avatar>
                     </IconButton>
@@ -88,7 +89,7 @@ export default function Article({ id, title, dateCreated, author, url, descripti
                 <IconButton aria-label="add to watchlist" onClick={handleAddWatchlist} id={id}>
                     <FavoriteIcon />
                 </IconButton>
-                {user === currentUser.userId ? (
+                {user.username === currentUser.username ? (
                     <>
                         <IconButton aria-label="Edit">
                             <EditSharpIcon />

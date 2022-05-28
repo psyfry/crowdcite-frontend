@@ -1,10 +1,5 @@
 /* eslint-disable import/no-anonymous-default-export */
 import axios from 'axios'
-//let token = null
-
-/* const setToken = (newToken) => {
-    token = `bearer ${newToken}`
-} */
 
 const baseUrl = 'http://localhost:3030/api/users'
 

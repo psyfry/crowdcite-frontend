@@ -64,6 +64,14 @@ const getTaggedArticles = async (tag) => {
     const response = await axios.get(`${baseUrl}/tags/${tag}`, config)
     return response.data
 }
+
+const editArticle = async (id, updateObj) => {
+    const config = {
+        headers: { 'Authorization': token }
+    }
+    const response = await axios.put(`${baseUrl}/${id}`, config)
+    return response.data
+}
 export default {
     addArticle,
     getArticles,
@@ -72,5 +80,5 @@ export default {
     watchArticle,
     deleteArticle,
     getTaggedArticles,
-    addComment, getWatchlist
+    addComment, getWatchlist, editArticle
 }

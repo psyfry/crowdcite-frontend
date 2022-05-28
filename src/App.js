@@ -37,6 +37,8 @@ const App = () => {
     const watchlist = useSelector((state) => state.watchlist)
     const [ username, setUsername ] = useState('')
     const [ password, setPassword ] = useState('')
+    const [ formVisible, setFormVisible ] = useState(false)
+
     //const [ watchArray, setWatchArray ] = useState([])
     //const [ searchResults, setSeachResults ] = useState('')
     const dispatch = useDispatch()
@@ -116,13 +118,15 @@ const App = () => {
             dispatch(setErrorMessage("Error: Toggle Watchlist Failed", 5))
         }
     }
+
     return (
         <div className='App'>
             <NavBar user={user} handleSignout={handleSignout} />
             {errorMessage && <Notifications message={errorMessage} />}
+            {formVisible === true ? <AddArticleForm /> : <></>}
             <Routes>
                 <Route path='/Articles/:id' element={<Article handleAddWatchlist={toggleWatchlist} />} />
-                <Route path='/Articles' element={<ArticleContainer articles={articles} user={user} toggleWatchlist={toggleWatchlist} />} />
+                <Route path='/Articles' element={<ArticleContainer articles={articles} toggleWatchlist={toggleWatchlist} />} />
                 <Route path='/Users/:id' element={<User />} />
                 <Route path='/Dashboard' element={<Dashboard articles={articles} user={user} toggleWatchlist={toggleWatchlist} />} />
                 <Route path='/Watchlist' element={<Watchlist watchlist={watchlist} user={user} toggleWatchlist={toggleWatchlist} />} />
