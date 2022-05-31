@@ -120,7 +120,7 @@ const App = () => {
     const toggleWatchlist = async (articleId) => {
         try {
             dispatch(toggleWatched(articleId))
-            dispatch(setErrorMessage("Watchlist changed", 5))
+            //dispatch(setErrorMessage("Watchlist changed", 5))
         } catch (exception) {
             dispatch(setErrorMessage("Error: Toggle Watchlist Failed", 5))
         }

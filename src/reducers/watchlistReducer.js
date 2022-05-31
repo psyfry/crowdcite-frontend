@@ -2,10 +2,10 @@ import articleService from "../services/articleService"
 
 export const getWatchlist = () => {
     return async (dispatch) => {
-        const currentWatchlist = await articleService.getWatchlist()
+        const watchlist = await articleService.getWatchlist()
         dispatch({
             type: 'GET_WATCHLIST',
-            data: currentWatchlist
+            data: watchlist
         })
     }
 }
@@ -29,7 +29,7 @@ const watchlistReducer = (state = [], action) => {
         case 'GET_WATCHLIST':
             return action.data
         case 'TOGGLE_WATCH':
-            const id = action.data.id
+            const id = action.data._id
             const returnedArticle = action.data
             return state.map(x => x.id !== id ? x : returnedArticle)
         default:
