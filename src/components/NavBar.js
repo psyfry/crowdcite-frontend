@@ -72,6 +72,20 @@ const NavBar = ({ user, handleSignout, toggleArticleFormVisibility }) => {
                                 sx={{
                                     display: { xs: 'block', md: 'none' }
                                 }}>
+                                <MenuItem
+                                    key='Add'
+                                    onClick={handleCloseNavMenu}>
+                                    <Typography
+                                        textAlign='center'
+                                        onClick={toggleArticleFormVisibility}
+                                        sx={{
+                                            color: 'inherit',
+                                            textDecoration: 'none',
+                                            fontFamily: 'monospace'
+                                        }}>
+                                        Add
+                                    </Typography>
+                                </MenuItem>
                                 {pages.map((page) => (
                                     <MenuItem
                                         key={page}

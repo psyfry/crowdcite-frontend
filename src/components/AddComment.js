@@ -18,13 +18,14 @@ const AddComment = ({ id }) => {
     return (
         <Box sx={{ maxWidth: 400 }}>
             <form onSubmit={handleComment}>
-                <Stack direction='row' spacing={0.5}>
+                <Stack justifyContent="space-around" direction='row' spacing={0.5}>
                     <TextField
                         onChange={({ target }) => setComment(target.value)}
                         value={comment}
                         size='small'
+                        fullWidth
                     />
-                    <Button type='submit' variant='contained' size='medium' endIcon={<AddCommentIcon />}>Comment</Button>
+                    <Button type='submit' variant='contained' size='small' >Comment</Button>
                 </Stack>
             </form>
         </Box>

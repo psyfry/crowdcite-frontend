@@ -18,7 +18,7 @@ const Comment = ({ comment }) => {
             title={comment.text}
             subheader={formatDate}
         />
-        <Divider variant="inset" />
+        <Divider />
     </Card>
 }
 
