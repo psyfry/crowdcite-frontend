@@ -73,7 +73,7 @@ const AddArticleForm = ({ isEdit, prevTitle,
                             5
                         )
                     )
-                } else {
+                } else if (!isEdit) {
                     dispatch(createArticle(articleObj))
                     dispatch(
                         setErrorMessage(
@@ -89,7 +89,7 @@ const AddArticleForm = ({ isEdit, prevTitle,
                 setDoi('')
                 setPublisher('')
                 setPubDate('')
-                setTags('')
+                setTags([])
             } catch (exception) {
                 //dispatch(setErrorMessage('Error: Unhandled Exception', 10))
                 dispatch(setErrorMessage(`Error: ${exception}`, 10))
@@ -149,7 +149,6 @@ const AddArticleForm = ({ isEdit, prevTitle,
                         value={doi}
                     />
                     <br />
-                    <Stack direction='row' spacing={1}><Tags tags={tags} handleDelete={handleDeleteTag} isDeletable='true' /></Stack>
                     <Stack direction='row' spacing={1}><TextField
                         id='tags'
                         label='tags'
@@ -157,12 +156,14 @@ const AddArticleForm = ({ isEdit, prevTitle,
                         onChange={({ target }) => setTagValue(target.value)} value={tagValue}
                     /><Button variant='contained' onClick={handleAddTag}>Add Tag</Button>
                     </Stack>
+                    <Stack direction='row' spacing={1}><Tags tags={tags} handleDelete={handleDeleteTag} isDeletable='true' /></Stack>
                     <br />
                     <TextField
                         id='Publisher'
                         label='Publisher'
                         variant='outlined'
                         onChange={({ target }) => setPublisher(target.value)}
+                        value={publisher}
                     />
                     <br />
                     <TextField
@@ -170,6 +171,7 @@ const AddArticleForm = ({ isEdit, prevTitle,
                         label='Publication Date'
                         variant='outlined'
                         onChange={({ target }) => setPubDate(target.value)}
+                        value={pubDate}
                     />
                     <br />
                     <Button

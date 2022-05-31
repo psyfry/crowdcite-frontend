@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import './App.css'
 import {
-    deleteArticle,
     initializeArticles
 } from './reducers/articleReducer'
 import { setErrorMessage } from './reducers/noticeReducer'
@@ -14,7 +13,7 @@ import articleService from './services/articleService'
 import userService from './services/userService'
 import NavBar from './components/NavBar'
 import Home from './components/Home'
-import { Routes, Route } from 'react-router'
+import { Routes, Route, useNavigate } from 'react-router-dom'
 import AddArticleForm from './components/AddArticleForm'
 //import Articles from './components/Articles'
 import Article from './components/Article'
@@ -38,10 +37,12 @@ const App = () => {
     const [ username, setUsername ] = useState('')
     const [ password, setPassword ] = useState('')
     const [ formVisible, setFormVisible ] = useState(false)
-
     //const [ watchArray, setWatchArray ] = useState([])
     //const [ searchResults, setSeachResults ] = useState('')
+
     const dispatch = useDispatch()
+    let navigate = useNavigate()
+
     useEffect(() => {
         dispatch(initializeArticles())
     }, [ dispatch ])
@@ -91,6 +92,7 @@ const App = () => {
             dispatch(setUser(user))
             setUsername('')
             setPassword('')
+            navigate('/Articles', { replace: true })
         } catch (exception) {
             dispatch(setErrorMessage('Error: Invalid Credentials', 10))
         }
@@ -100,9 +102,11 @@ const App = () => {
         try {
             await userService.createUser(newUser)
             dispatch(setErrorMessage('Success! User Created. You can now login', 10))
+
         } catch (exception) {
             dispatch(setErrorMessage('Error: Registration failed', 10))
         }
+        navigate('/Login', { replace: true })
     }
     const handleSignout = () => {
         dispatch(signOut())
@@ -110,10 +114,13 @@ const App = () => {
         dispatch(setErrorMessage('Signed out', 5))
         setUsername('')
         setPassword('')
+        navigate('/', { replace: true })
+
     }
     const toggleWatchlist = async (articleId) => {
         try {
-            dispatch(toggleWatched(articleId, user.username))
+            dispatch(toggleWatched(articleId))
+            dispatch(setErrorMessage("Watchlist changed", 5))
         } catch (exception) {
             dispatch(setErrorMessage("Error: Toggle Watchlist Failed", 5))
         }
@@ -123,10 +130,10 @@ const App = () => {
         <div className='App'>
             <NavBar user={user} handleSignout={handleSignout} />
             {errorMessage && <Notifications message={errorMessage} />}
-            {formVisible === true ? <AddArticleForm /> : <></>}
+            {formVisible === true ? <AddArticleForm isEdit={false} /> : <></>}
             <Routes>
                 <Route path='/Articles/:id' element={<Article handleAddWatchlist={toggleWatchlist} />} />
-                <Route path='/Articles' element={<ArticleContainer articles={articles} toggleWatchlist={toggleWatchlist} />} />
+                <Route path='/Articles' element={<ArticleContainer articles={articles} toggleWatchlist={toggleWatchlist} watchlist={watchlist} />} />
                 <Route path='/Users/:id' element={<User />} />
                 <Route path='/Dashboard' element={<Dashboard articles={articles} user={user} toggleWatchlist={toggleWatchlist} />} />
                 <Route path='/Watchlist' element={<Watchlist watchlist={watchlist} user={user} toggleWatchlist={toggleWatchlist} />} />
@@ -138,7 +145,7 @@ const App = () => {
                 <Route
                     path='/Add'
                     element={
-                        <AddArticleForm />
+                        <AddArticleForm isEdit={false} />
                     }
                 />
                 <Route path='/Users' element={<Users userList={userList} />} />

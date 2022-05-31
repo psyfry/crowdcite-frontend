@@ -38,7 +38,7 @@ export const editArticle = (id, content) => {
 }
 export const toggleWatchlist = (id) => {
     return async (dispatch) => {
-        const watchedArticle = await articleService.toggleWatchlist(id)
+        const watchedArticle = await articleService.watchArticle(id, id)
         dispatch({
             type: 'WATCH',
             data: watchedArticle

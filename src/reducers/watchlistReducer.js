@@ -2,16 +2,16 @@ import articleService from "../services/articleService"
 
 export const getWatchlist = () => {
     return async (dispatch) => {
-        const watchlist = await articleService.getWatchlist()
+        const currentWatchlist = await articleService.getWatchlist()
         dispatch({
             type: 'GET_WATCHLIST',
-            data: watchlist
+            data: currentWatchlist
         })
     }
 }
-export const toggleWatched = (id, username) => {
+export const toggleWatched = (id) => {
     return async (dispatch) => {
-        const watchedArticle = await articleService.watchArticle(id, username)
+        const watchedArticle = await articleService.watchArticle(id)
         dispatch({
             type: 'TOGGLE_WATCH',
             data: watchedArticle

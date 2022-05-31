@@ -25,13 +25,6 @@ const addArticle = async (newArticle) => {
     return response.data
 }
 
-const watchArticle = async (id, username) => {
-    const config = {
-        headers: { Authorization: token }
-    }
-    const response = await axios.put(`${baseUrl}/${id}/watch`, username, config)
-    return response.data
-}
 
 const deleteArticle = async (id) => {
     const config = {
@@ -52,14 +45,22 @@ const addComment = async (id, comment) => {
 }
 const getWatchlist = async () => {
     const config = {
-        headers: { 'Authorization': token }
+        headers: { Authorization: token }
     }
     const response = await axios.get(`${watchlistUrl}`, config)
     return response.data
 }
+const watchArticle = async (id) => {
+    const config = {
+        headers: { Authorization: token }
+    }
+    const obj = { id: id }
+    const response = await axios.put(`${baseUrl}/${id}/watch`, obj, config)
+    return response.data
+}
 const getTaggedArticles = async (tag) => {
     const config = {
-        headers: { 'Authorization': token }
+        headers: { Authorization: token }
     }
     const response = await axios.get(`${baseUrl}/tags/${tag}`, config)
     return response.data
@@ -67,9 +68,9 @@ const getTaggedArticles = async (tag) => {
 
 const editArticle = async (id, updateObj) => {
     const config = {
-        headers: { 'Authorization': token }
+        headers: { Authorization: token }
     }
-    const response = await axios.put(`${baseUrl}/${id}`, config)
+    const response = await axios.put(`${baseUrl}/${id}`, updateObj, config)
     return response.data
 }
 export default {
