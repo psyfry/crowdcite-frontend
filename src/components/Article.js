@@ -37,6 +37,7 @@ const ExpandMore = styled((props) => {
 export default function Article({ id, title, dateCreated, author, url, description, tags, comments, doi, pubDate, publisher, displayName, toggleWatchlist, avatarColor, watchArray, user }) {
     const [ expanded, setExpanded ] = React.useState(false);
     const currentUser = useSelector((state) => state.user)
+    const watchlist = useSelector((state) => state.watchlist)
     const dispatch = useDispatch()
     const handleExpandClick = () => {
         setExpanded(!expanded);
@@ -45,14 +46,15 @@ export default function Article({ id, title, dateCreated, author, url, descripti
         const articleId = id
         toggleWatchlist(articleId)
     }
-    console.log({ user });
+    //console.log({ watchlist });
 
     const handleDelete = (event) => {
         console.log('delete');
         event.preventDefault()
         dispatch(deleteArticle(id))
     }
-    //const color = watchArray.includes(id) ? 'secondary' : 'action'
+    const watchlistIds = watchlist.map(x => x.id)
+    const color = watchlistIds.includes(id) ? 'secondary' : 'action'
     return (
         <Card variant="outlined" sx={{ maxWidth: '400px' }}>
             <CardHeader
@@ -86,8 +88,8 @@ export default function Article({ id, title, dateCreated, author, url, descripti
                 <Tags tags={tags} isDeletable='false' />
             </CardContent>
             <CardActions disableSpacing>
-                <IconButton aria-label="add to watchlist" onClick={handleAddWatchlist} id={id}>
-                    <FavoriteIcon />
+                <IconButton aria-label="add to watchlist" onClick={handleAddWatchlist} id={id} >
+                    <FavoriteIcon color={color} />
                 </IconButton>
                 {user.username === currentUser.username ? (
                     <>
