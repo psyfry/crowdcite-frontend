@@ -17,7 +17,7 @@ const AddArticleForm = ({ isEdit, prevTitle,
     prevDoi,
     prevPublisher,
     prevPubDate,
-    prevTags, id }) => {
+    prevTags, id, toggleArticleFormVisibility }) => {
     const [ title, setTitle ] = useState('')
     const [ author, setAuthor ] = useState('')
     const [ url, setUrl ] = useState('')
@@ -180,7 +180,7 @@ const AddArticleForm = ({ isEdit, prevTitle,
                         type='submit'>
                         Submit
                     </Button>
-                    <Button variant='outlined' startIcon={<DeleteIcon />} href={'/Articles'}>
+                    <Button variant='outlined' startIcon={<DeleteIcon />} onClick={toggleArticleFormVisibility}>
                         Cancel
                     </Button>
                     <br />

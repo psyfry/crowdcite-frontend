@@ -82,7 +82,9 @@ const App = () => {
             }
             dispatch(initializeArticles())
         } */
-
+    const handleArticleFormVisibility = () => {
+        setFormVisible(!formVisible)
+    }
     const handleLogin = async (event) => {
         event.preventDefault()
         try {
@@ -128,9 +130,9 @@ const App = () => {
 
     return (
         <div className='App'>
-            <NavBar user={user} handleSignout={handleSignout} />
+            <NavBar user={user} handleSignout={handleSignout} toggleArticleFormVisibility={handleArticleFormVisibility} />
             {errorMessage && <Notifications message={errorMessage} />}
-            {formVisible === true ? <AddArticleForm isEdit={false} /> : <></>}
+            {formVisible === true ? <AddArticleForm isEdit={false} toggleArticleFormVisibility={handleArticleFormVisibility} /> : <></>}
             <Routes>
                 <Route path='/Articles/:id' element={<Article handleAddWatchlist={toggleWatchlist} />} />
                 <Route path='/Articles' element={<ArticleContainer articles={articles} toggleWatchlist={toggleWatchlist} watchlist={watchlist} />} />
@@ -148,7 +150,7 @@ const App = () => {
                         <AddArticleForm isEdit={false} />
                     }
                 />
-                <Route path='/Users' element={<Users userList={userList} />} />
+                <Route path='/Users' element={<Users userList={userList} toggleWatchlist={toggleWatchlist} />} />
                 <Route path='/Search' element={<Search />} />
                 <Route path='/search/:query' element={<SearchResults user={user} toggleWatchlist={toggleWatchlist} />} />
                 <Route path='/' element={<Home />} />

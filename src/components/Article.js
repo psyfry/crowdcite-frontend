@@ -21,8 +21,12 @@ import Divider from '@mui/material/Divider';
 import { Box } from '@mui/system';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteArticle } from '../reducers/articleReducer';
+import { toggleWatched } from '../reducers/watchlistReducer'
+import { setErrorMessage } from '../reducers/noticeReducer'
+//import AddArticleForm from './AddArticleForm';
 //import FlagIcon from '@mui/icons-material/Flag';
 //import FlagCircleIcon from '@mui/icons-material/FlagCircle';
+
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
     return <IconButton {...other} />;
@@ -34,8 +38,9 @@ const ExpandMore = styled((props) => {
     }),
 }));
 
-export default function Article({ id, title, dateCreated, author, url, description, tags, comments, doi, pubDate, publisher, displayName, toggleWatchlist, avatarColor, watchArray, user }) {
+export default function Article({ id, title, dateCreated, author, url, description, tags, comments, doi, pubDate, publisher, displayName, avatarColor, user }) {
     const [ expanded, setExpanded ] = React.useState(false);
+    //const [ editFormVisible, setEditFormVisible ] = React.useState(false)
     const currentUser = useSelector((state) => state.user)
     const watchlist = useSelector((state) => state.watchlist)
     const dispatch = useDispatch()
@@ -53,6 +58,15 @@ export default function Article({ id, title, dateCreated, author, url, descripti
         event.preventDefault()
         dispatch(deleteArticle(id))
     }
+
+    const toggleWatchlist = async (articleId) => {
+        try {
+            dispatch(toggleWatched(articleId))
+        } catch (exception) {
+            dispatch(setErrorMessage("Error: Toggle Watchlist Failed", 5))
+        }
+    }
+
     const watchlistIds = watchlist.map(x => x.id)
     const color = watchlistIds.includes(id) ? 'secondary' : 'action'
     return (
@@ -61,7 +75,7 @@ export default function Article({ id, title, dateCreated, author, url, descripti
                 avatar={
                     <IconButton aria-label='user' >
                         <Avatar sx={{ bgcolor: avatarColor }} aria-label="article contributor">
-                            {displayName}
+                            <Typography sx={{ color: 'black' }}>{displayName}</Typography>
                         </Avatar>
                     </IconButton>
                 }
@@ -93,7 +107,7 @@ export default function Article({ id, title, dateCreated, author, url, descripti
                 </IconButton>
                 {user.username === currentUser.username ? (
                     <>
-                        <IconButton aria-label="Edit">
+                        <IconButton aria-label="Edit" >
                             <EditSharpIcon />
                         </IconButton>
                         <IconButton aria-label="Delete" onClick={handleDelete}>

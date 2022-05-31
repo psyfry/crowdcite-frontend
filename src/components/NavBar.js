@@ -11,8 +11,8 @@ import Button from '@mui/material/Button'
 //import Tooltip from '@mui/material/Tooltip'
 import MenuItem from '@mui/material/MenuItem'
 
-const NavBar = ({ user, handleSignout }) => {
-    const pages = [ 'Add', 'Articles', 'Watchlist', 'Users' ]
+const NavBar = ({ user, handleSignout, toggleArticleFormVisibility }) => {
+    const pages = [ 'Articles', 'Watchlist', 'Users' ]
     const [ anchorElNav, setAnchorElNav ] = React.useState(null)
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget)
@@ -22,7 +22,7 @@ const NavBar = ({ user, handleSignout }) => {
     }
 
     return (
-        <AppBar position='static'>
+        <AppBar position='sticky'>
             <Container maxWidth='xl'>
                 <Toolbar disableGutters>
                     <Typography
@@ -46,7 +46,7 @@ const NavBar = ({ user, handleSignout }) => {
                             flexGrow: 1,
                             display: { xs: 'flex', md: 'none' }
                         }}>
-                        <IconButton
+                        {user !== null ? (<><IconButton
                             size='large'
                             aria-label='menu'
                             aria-controls='menu-appbar'
@@ -55,41 +55,41 @@ const NavBar = ({ user, handleSignout }) => {
                             color='inherit'>
                             <MenuIcon />
                         </IconButton>
-                        <Menu
-                            id='menu-appbar'
-                            anchorEl={anchorElNav}
-                            anchorOrigin={{
-                                vertical: 'bottom',
-                                horizontal: 'left'
-                            }}
-                            keepMounted
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'left'
-                            }}
-                            open={Boolean(anchorElNav)}
-                            onClose={handleCloseNavMenu}
-                            sx={{
-                                display: { xs: 'block', md: 'none' }
-                            }}>
-                            {pages.map((page) => (
-                                <MenuItem
-                                    key={page}
-                                    onClick={handleCloseNavMenu}>
-                                    <Typography
-                                        textAlign='center'
-                                        component='a'
-                                        href={`/${page}`}
-                                        sx={{
-                                            color: 'inherit',
-                                            textDecoration: 'none',
-                                            fontFamily: 'monospace'
-                                        }}>
-                                        {page}
-                                    </Typography>
-                                </MenuItem>
-                            ))}
-                        </Menu>
+                            <Menu
+                                id='menu-appbar'
+                                anchorEl={anchorElNav}
+                                anchorOrigin={{
+                                    vertical: 'bottom',
+                                    horizontal: 'left'
+                                }}
+                                keepMounted
+                                transformOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'left'
+                                }}
+                                open={Boolean(anchorElNav)}
+                                onClose={handleCloseNavMenu}
+                                sx={{
+                                    display: { xs: 'block', md: 'none' }
+                                }}>
+                                {pages.map((page) => (
+                                    <MenuItem
+                                        key={page}
+                                        onClick={handleCloseNavMenu}>
+                                        <Typography
+                                            textAlign='center'
+                                            component='a'
+                                            href={`/${page}`}
+                                            sx={{
+                                                color: 'inherit',
+                                                textDecoration: 'none',
+                                                fontFamily: 'monospace'
+                                            }}>
+                                            {page}
+                                        </Typography>
+                                    </MenuItem>
+                                ))}
+                            </Menu></>) : <></>}
                     </Box>
                     <Typography
                         variant='h5'
@@ -113,6 +113,18 @@ const NavBar = ({ user, handleSignout }) => {
                             flexGrow: 1,
                             display: { xs: 'none', md: 'flex' }
                         }}>
+                        {user !== null ? <Button
+                            key='Add'
+                            color='inherit'
+                            id='Add'
+                            onClick={toggleArticleFormVisibility}
+                            sx={{
+                                my: 2,
+                                color: 'white',
+                                display: 'block'
+                            }}>
+                            ADD
+                        </Button> : <></>}
                         {user !== null ? (
                             pages.map((page) => (
                                 <Button
