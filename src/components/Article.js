@@ -26,7 +26,7 @@ import { setErrorMessage } from '../reducers/noticeReducer'
 //import AddArticleForm from './AddArticleForm';
 //import FlagIcon from '@mui/icons-material/Flag';
 //import FlagCircleIcon from '@mui/icons-material/FlagCircle';
-
+import Tooltip from '@mui/material/Tooltip';
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
     return <IconButton {...other} />;
@@ -120,8 +120,10 @@ export default function Article({ id, title, dateCreated, author, url, descripti
                     aria-expanded={expanded}
                     aria-label="show comments"
                 >
-                    <ExpandMoreIcon />
-                </ExpandMore>
+                    <Tooltip title="View Comments">
+                        <ExpandMoreIcon />
+                    </Tooltip>
+                </ExpandMore>Comments
             </CardActions>
             <Collapse in={expanded} timeout="auto" unmountOnExit>
                 <CardContent>

@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import { createComment } from '../reducers/articleReducer'
 import Box from '@mui/material/Card'
 import Stack from '@mui/material/Stack';
-import AddCommentIcon from '@mui/icons-material/AddComment';
+//import AddCommentIcon from '@mui/icons-material/AddComment';
 
 const AddComment = ({ id }) => {
     const dispatch = useDispatch()

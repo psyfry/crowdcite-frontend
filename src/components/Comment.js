@@ -4,6 +4,7 @@ import CardHeader from '@mui/material/CardHeader';
 //import CardContent from '@mui/material/CardContent';
 import Avatar from '@mui/material/Avatar';
 import Divider from '@mui/material/Divider';
+import { CardContent, Typography } from '@mui/material';
 //import { red, blue, green, purple } from '@mui/material/colors';
 const Comment = ({ comment }) => {
     const formatDate = new Intl.DateTimeFormat('en-US').format(new Date(comment.timestamp))
@@ -15,9 +16,14 @@ const Comment = ({ comment }) => {
                     {comment.name}
                 </Avatar>
             }
-            title={comment.text}
+            align="left"
+
+            title={comment.username}
             subheader={formatDate}
         />
+        <CardContent align='left'>
+            <Typography paragraph>{comment.text}</Typography>
+        </CardContent>
         <Divider />
     </Card>
 }

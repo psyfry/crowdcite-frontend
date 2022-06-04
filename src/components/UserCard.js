@@ -48,12 +48,11 @@ export default function UserCard({ id, username, firstName, lastName, articles, 
                 >
                     <ExpandMoreIcon />
                 </ExpandMore>
+                <Typography variant='button'>Submissions</Typography>
             </CardActions>
             <Collapse in={expanded} timeout="auto" unmountOnExit>
                 <CardContent>
-                    <Typography variant="body2" color="text.secondary">
-                        Submissions
-                    </Typography>
+
                     <ArticleContainer articles={articles} />
 
                 </CardContent>

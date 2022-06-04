@@ -7,7 +7,7 @@ import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import TextField from '@mui/material/TextField';
 const Filter = ({ handleFilter, filterQuery, filterType, handleFilterType }) => {
-
+    //* Show number of search results
     return (
         <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
             <Stack direction='column' spacing={.5}>
