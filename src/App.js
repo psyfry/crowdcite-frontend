@@ -37,7 +37,6 @@ const App = () => {
     const [ username, setUsername ] = useState('')
     const [ password, setPassword ] = useState('')
     const [ formVisible, setFormVisible ] = useState(false)
-    //const [ watchArray, setWatchArray ] = useState([])
     //const [ searchResults, setSeachResults ] = useState('')
 
     const dispatch = useDispatch()
@@ -152,7 +151,7 @@ const App = () => {
                 />
                 <Route path='/Users' element={<Users userList={userList} toggleWatchlist={toggleWatchlist} />} />
                 <Route path='/Search' element={<Search />} />
-                <Route path='/search/:query' element={<SearchResults user={user} toggleWatchlist={toggleWatchlist} />} />
+                <Route path='/search/:query' element={<SearchResults toggleWatchlist={toggleWatchlist} />} />
                 <Route path='/' element={<Home />} />
             </Routes>
         </div>

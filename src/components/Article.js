@@ -80,7 +80,7 @@ export default function Article({ id, title, dateCreated, author, url, descripti
                     </IconButton>
                 }
                 action={
-                    <IconButton aria-label="settings" href={`api/articles/${id}`}>
+                    <IconButton aria-label="view article" href={`Articles`} >
                         <ArrowCircleRightIcon />
                     </IconButton>
                 }

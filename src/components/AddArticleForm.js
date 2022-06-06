@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { TextField, Button, Card, Typography } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete'
 //import PublishIcon from '@mui/icons-material/Publish';
@@ -28,6 +28,8 @@ const AddArticleForm = ({ isEdit, prevTitle,
     const [ tags, setTags ] = useState([])
     const [ tagValue, setTagValue ] = useState('')
 
+    const inputFocusRef = useRef()
+
     if (isEdit === true) {
         setTitle(prevTitle)
         setAuthor(prevAuthor)
@@ -40,16 +42,27 @@ const AddArticleForm = ({ isEdit, prevTitle,
     }
     const formName = isEdit ? 'Edit' : "Add"
     const dispatch = useDispatch()
-    const handleAddTag = () => {
-        const newTag = tags.concat(tagValue)
-        setTags(newTag)
+
+    const handleTagKeyPress = (e) => {
+        if (e.key === "Enter") {
+            e.preventDefault()
+            handleAddTag()
+        }
+    }
+    function handleAddTag() {
+        if (tagValue !== '' && !tags.includes(tagValue)) {
+            const newTag = tags.concat(tagValue)
+            setTags(newTag)
+        }
         setTagValue('')
+        inputFocusRef.current.focus()
     }
     const handleDeleteTag = (event) => {
         event.preventDefault()
         const deletedTag = event.currentTarget.parentElement.id
         const filteredTags = tags.filter(x => x !== deletedTag)
         setTags(filteredTags)
+        inputFocusRef.current.focus()
     }
     const handleSubmit = (event) => {
         event.preventDefault()
@@ -112,6 +125,7 @@ const AddArticleForm = ({ isEdit, prevTitle,
                         variant='outlined'
                         onChange={({ target }) => setTitle(target.value)}
                         value={title}
+                        autoFocus={true}
                     />
                     <br />
                     <TextField
@@ -153,6 +167,8 @@ const AddArticleForm = ({ isEdit, prevTitle,
                         id='tags'
                         label='tags'
                         variant='outlined'
+                        inputRef={inputFocusRef}
+                        onKeyPress={(e) => handleTagKeyPress(e)}
                         onChange={({ target }) => setTagValue(target.value)} value={tagValue}
                     /><Button variant='contained' onClick={handleAddTag}>Add Tag</Button>
                     </Stack>
