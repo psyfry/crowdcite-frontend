@@ -27,7 +27,7 @@ import Signup from './components/Signup'
 import SearchResults from './components/SearchResults'
 import ArticleContainer from './components/ArticleContainer'
 import { Dashboard } from '@mui/icons-material'
-
+import ArticleFormModal from './components/ArticleFormModal'
 const App = () => {
     const articles = useSelector((state) => state.articles)
     const errorMessage = useSelector((state) => state.errorMessage)
@@ -36,7 +36,7 @@ const App = () => {
     const watchlist = useSelector((state) => state.watchlist)
     const [ username, setUsername ] = useState('')
     const [ password, setPassword ] = useState('')
-    const [ formVisible, setFormVisible ] = useState(false)
+
     //const [ searchResults, setSeachResults ] = useState('')
 
     const dispatch = useDispatch()
@@ -63,27 +63,9 @@ const App = () => {
         dispatch(getWatchlist())
     }, [ dispatch ])
 
-    /*     const handleAddArticle = (articleObj) => {
-            if (articleObj.title !== '' && articleObj.author !== '') {
-                try {
-                    dispatch(createArticle(articleObj))
-                    dispatch(
-                        setErrorMessage(
-                            `${articleObj.title} by ${articleObj.author} added`,
-                            5
-                        )
-                    )
-                } catch (exception) {
-                    dispatch(setErrorMessage('Error: Unhandled Exception', 10))
-                }
-            } else {
-                dispatch(setErrorMessage('Error: Missing Required Fields', 10))
-            }
-            dispatch(initializeArticles())
+    /*     const handleArticleFormVisibility = () => {
+            setFormVisible(!formVisible)
         } */
-    const handleArticleFormVisibility = () => {
-        setFormVisible(!formVisible)
-    }
     const handleLogin = async (event) => {
         event.preventDefault()
         try {
@@ -129,9 +111,9 @@ const App = () => {
 
     return (
         <div className='App'>
-            <NavBar user={user} handleSignout={handleSignout} toggleArticleFormVisibility={handleArticleFormVisibility} />
+            <NavBar user={user} handleSignout={handleSignout} />
             {errorMessage && <Notifications message={errorMessage} />}
-            {formVisible === true ? <AddArticleForm isEdit={false} toggleArticleFormVisibility={handleArticleFormVisibility} /> : <></>}
+            <ArticleFormModal />
             <Routes>
                 <Route path='/Articles/:id' element={<Article handleAddWatchlist={toggleWatchlist} />} />
                 <Route path='/Articles' element={<ArticleContainer articles={articles} toggleWatchlist={toggleWatchlist} watchlist={watchlist} />} />

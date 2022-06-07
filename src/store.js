@@ -8,6 +8,7 @@ import noticeReducer from './reducers/noticeReducer'
 import userReducer from './reducers/userReducer'
 import userListReducer from './reducers/userListReducer'
 import watchlistReducer from './reducers/watchlistReducer'
+import articleFormReducer from './reducers/articleFormReducer'
 
 
 const reducer = combineReducers({
@@ -15,7 +16,8 @@ const reducer = combineReducers({
     errorMessage: noticeReducer,
     user: userReducer,
     userList: userListReducer,
-    watchlist: watchlistReducer
+    watchlist: watchlistReducer,
+    articleDialog: articleFormReducer
 })
 
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)))

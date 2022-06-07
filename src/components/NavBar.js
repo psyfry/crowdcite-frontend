@@ -11,9 +11,12 @@ import Button from '@mui/material/Button'
 //import Tooltip from '@mui/material/Tooltip'
 import MenuItem from '@mui/material/MenuItem'
 
-const NavBar = ({ user, handleSignout, toggleArticleFormVisibility }) => {
+import { useDispatch } from 'react-redux'
+import { openDialog } from '../reducers/articleFormReducer'
+const NavBar = ({ user, handleSignout }) => {
     const pages = [ 'Articles', 'Watchlist', 'Users' ]
     const [ anchorElNav, setAnchorElNav ] = React.useState(null)
+    const dispatch = useDispatch()
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget)
     }
@@ -77,7 +80,7 @@ const NavBar = ({ user, handleSignout, toggleArticleFormVisibility }) => {
                                     onClick={handleCloseNavMenu}>
                                     <Typography
                                         textAlign='center'
-                                        onClick={toggleArticleFormVisibility}
+                                        onClick={() => dispatch(openDialog())}
                                         sx={{
                                             color: 'inherit',
                                             textDecoration: 'none',
@@ -131,7 +134,7 @@ const NavBar = ({ user, handleSignout, toggleArticleFormVisibility }) => {
                             key='Add'
                             color='inherit'
                             id='Add'
-                            onClick={toggleArticleFormVisibility}
+                            onClick={() => dispatch(openDialog())}
                             sx={{
                                 my: 2,
                                 color: 'white',
