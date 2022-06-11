@@ -29,11 +29,11 @@ export const editArticle = (id, content) => {
             type: 'EDIT_ARTICLE',
             data: edittedArticle
         })
-        const articles = await articleService.getArticles()
-        dispatch({
-            type: 'INIT_ARTICLES',
-            data: articles
-        })
+        /*         const articles = await articleService.getArticles()
+                dispatch({
+                    type: 'INIT_ARTICLES',
+                    data: articles
+                }) */
     }
 }
 export const toggleWatchlist = (id) => {
@@ -43,11 +43,11 @@ export const toggleWatchlist = (id) => {
             type: 'WATCH',
             data: watchedArticle
         })
-        const articles = await articleService.getArticles()
-        dispatch({
-            type: 'INIT_ARTICLES',
-            data: articles
-        })
+        /*         const articles = await articleService.getArticles()
+                dispatch({
+                    type: 'INIT_ARTICLES',
+                    data: articles
+                }) */
     }
 }
 
@@ -72,11 +72,11 @@ export const createComment = (id, comment) => {
             type: 'ADD_COMMENT',
             data: updatedArticle
         })
-        const articles = await articleService.getArticles()
-        dispatch({
-            type: 'INIT_ARTICLES',
-            data: articles
-        })
+        /*         const articles = await articleService.getArticles()
+                dispatch({
+                    type: 'INIT_ARTICLES',
+                    data: articles
+                }) */
     }
 }
 

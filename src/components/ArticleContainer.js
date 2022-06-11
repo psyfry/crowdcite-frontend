@@ -4,7 +4,7 @@ import Filter from './Filter'
 const ArticleContainer = ({ articles, toggleWatchlist, watchArray }) => {
     const [ filterType, setFilterType ] = useState('title')
     const [ filterQuery, setFilterQuery ] = useState('')
-    console.log({ articles });
+    //console.log({ articles });
 
     const displayedEntries = articles.filter((x) => {
         //console.log(x.filterType);

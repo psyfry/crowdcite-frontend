@@ -26,7 +26,10 @@ import { setErrorMessage } from '../reducers/noticeReducer'
 //import AddArticleForm from './AddArticleForm';
 //import FlagIcon from '@mui/icons-material/Flag';
 //import FlagCircleIcon from '@mui/icons-material/FlagCircle';
+import { openDialog, setEdit, setPrevValues } from '../reducers/articleFormReducer';
 import Tooltip from '@mui/material/Tooltip';
+
+
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
     return <IconButton {...other} />;
@@ -38,9 +41,8 @@ const ExpandMore = styled((props) => {
     }),
 }));
 
-export default function Article({ id, title, dateCreated, author, url, description, tags, comments, doi, pubDate, publisher, displayName, avatarColor, user }) {
+export default function Article({ id, title, author, url, description, tags, comments, doi, pubDate, publisher, displayName, avatarColor, user }) {
     const [ expanded, setExpanded ] = React.useState(false);
-    //const [ editFormVisible, setEditFormVisible ] = React.useState(false)
     const currentUser = useSelector((state) => state.user)
     const watchlist = useSelector((state) => state.watchlist)
     const dispatch = useDispatch()
@@ -51,12 +53,17 @@ export default function Article({ id, title, dateCreated, author, url, descripti
         const articleId = id
         toggleWatchlist(articleId)
     }
-    //console.log({ watchlist });
 
     const handleDelete = (event) => {
-        console.log('delete');
         event.preventDefault()
         dispatch(deleteArticle(id))
+    }
+    const handleEditClick = () => {
+        const prevArr = [ id, title, author, url, description, tags, doi, pubDate, publisher ]
+        //handleEdit(prevArr)
+        dispatch(setPrevValues(prevArr))
+        dispatch(setEdit())
+        dispatch(openDialog())
     }
 
     const toggleWatchlist = async (articleId) => {
@@ -68,7 +75,8 @@ export default function Article({ id, title, dateCreated, author, url, descripti
     }
 
     const watchlistIds = watchlist.map(x => x.id)
-    const color = watchlistIds.includes(id) ? 'secondary' : 'action'
+    const watchColor = watchlistIds.includes(id) ? 'secondary' : 'action'
+
     return (
         <Card variant="outlined" sx={{ maxWidth: '400px' }}>
             <CardHeader
@@ -103,11 +111,11 @@ export default function Article({ id, title, dateCreated, author, url, descripti
             </CardContent>
             <CardActions disableSpacing>
                 <IconButton aria-label="add to watchlist" onClick={handleAddWatchlist} id={id} >
-                    <FavoriteIcon color={color} />
+                    <FavoriteIcon color={watchColor} />
                 </IconButton>
                 {user.username === currentUser.username ? (
                     <>
-                        <IconButton aria-label="Edit" >
+                        <IconButton aria-label="Edit" onClick={handleEditClick}>
                             <EditSharpIcon />
                         </IconButton>
                         <IconButton aria-label="Delete" onClick={handleDelete}>
@@ -130,6 +138,7 @@ export default function Article({ id, title, dateCreated, author, url, descripti
                     <CommentBox id={id} comments={comments} />
                 </CardContent>
             </Collapse>
+
         </Card >
     );
 }

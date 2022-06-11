@@ -104,7 +104,6 @@ const AddArticleForm = ({ isEdit, prevTitle,
                 setPubDate('')
                 setTags([])
             } catch (exception) {
-                //dispatch(setErrorMessage('Error: Unhandled Exception', 10))
                 dispatch(setErrorMessage(`Error: ${exception}`, 10))
             }
         } else {

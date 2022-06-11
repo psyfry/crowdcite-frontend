@@ -3,27 +3,19 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setErrorMessage } from '../reducers/noticeReducer'
 import { createArticle, editArticle } from '../reducers/articleReducer'
 
-import { TextField, Button, Card, Typography } from '@mui/material'
+import { TextField, Button } from '@mui/material'
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-//import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
 import DeleteIcon from '@mui/icons-material/Delete'
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import Tags from './Tags'
 import Stack from '@mui/material/Stack';
-import { closeDialog } from '../reducers/articleFormReducer'
+import { closeDialog, unsetEdit } from '../reducers/articleFormReducer'
 
-const ArticleFormModal = ({ isEdit, prevTitle,
-    prevAuthor,
-    prevUrl,
-    prevDescription,
-    prevDoi,
-    prevPublisher,
-    prevPubDate,
-    prevTags, id }) => {
+const ArticleFormModal = ({ isEdit, prevValues }) => {
     const [ title, setTitle ] = useState('')
     const [ author, setAuthor ] = useState('')
     const [ url, setUrl ] = useState('')
@@ -36,22 +28,26 @@ const ArticleFormModal = ({ isEdit, prevTitle,
 
     const inputFocusRef = useRef()
 
-    const open = useSelector((state) => state.articleDialog)
+    const open = useSelector((state) => state.articleDialog.isOpen)
 
     const handleClose = () => {
         dispatch(closeDialog())
     }
+    console.log({ prevValues });
+    const [ id, prevTitle, prevAuthor, prevUrl, prevDescription, prevTags, prevDoi, prevPubDate, prevPublisher ] = prevValues
+    //console.log({ id });
+    //console.log({ prevDoi });
+    /*     if (isEdit === true) {
+            setTitle(prevTitle)
+            setAuthor(prevAuthor)
+            setUrl(prevUrl)
+            setDescription(prevDescription)
+            setDoi(prevDoi)
+            setPublisher(prevPublisher)
+            setPubDate(prevPubDate)
+            setTags(prevTags)
+        } */
 
-    if (isEdit === true) {
-        setTitle(prevTitle)
-        setAuthor(prevAuthor)
-        setUrl(prevUrl)
-        setDescription(prevDescription)
-        setDoi(prevDoi)
-        setPublisher(prevPublisher)
-        setPubDate(prevPubDate)
-        setTags(prevTags)
-    }
     const formName = isEdit ? 'Edit' : "Add"
     const dispatch = useDispatch()
 
@@ -98,6 +94,7 @@ const ArticleFormModal = ({ isEdit, prevTitle,
                             5
                         )
                     )
+                    dispatch(unsetEdit())
                 } else if (!isEdit) {
                     dispatch(createArticle(articleObj))
                     dispatch(
@@ -116,6 +113,7 @@ const ArticleFormModal = ({ isEdit, prevTitle,
                 setPubDate('')
                 setTags([])
                 dispatch(closeDialog())
+                dispatch(unsetEdit())
             } catch (exception) {
                 //dispatch(setErrorMessage('Error: Unhandled Exception', 10))
                 dispatch(setErrorMessage(`Error: ${exception}`, 10))
@@ -127,7 +125,7 @@ const ArticleFormModal = ({ isEdit, prevTitle,
 
 
     return (
-        <Dialog open={open} onClose={handleClose}>
+        <Dialog open={open} onClose={handleClose} keepMounted>
             <DialogTitle>{formName} Article</DialogTitle>
 
             <form onSubmit={handleSubmit}>

@@ -8,13 +8,14 @@ import { setErrorMessage } from './reducers/noticeReducer'
 import { setUser, signOut } from './reducers/userReducer'
 import { getUserList } from './reducers/userListReducer'
 import { getWatchlist, toggleWatched } from './reducers/watchlistReducer'
+
 import loginService from './services/login'
 import articleService from './services/articleService'
 import userService from './services/userService'
 import NavBar from './components/NavBar'
 import Home from './components/Home'
 import { Routes, Route, useNavigate } from 'react-router-dom'
-import AddArticleForm from './components/AddArticleForm'
+//import AddArticleForm from './components/AddArticleForm'
 //import Articles from './components/Articles'
 import Article from './components/Article'
 import Users from './components/Users'
@@ -36,9 +37,9 @@ const App = () => {
     const watchlist = useSelector((state) => state.watchlist)
     const [ username, setUsername ] = useState('')
     const [ password, setPassword ] = useState('')
-
+    const isEdit = useSelector((state) => state.articleDialog.isEdit)
     //const [ searchResults, setSeachResults ] = useState('')
-
+    const prevValues = useSelector((state) => state.articleDialog.prevValues)
     const dispatch = useDispatch()
     let navigate = useNavigate()
 
@@ -63,9 +64,6 @@ const App = () => {
         dispatch(getWatchlist())
     }, [ dispatch ])
 
-    /*     const handleArticleFormVisibility = () => {
-            setFormVisible(!formVisible)
-        } */
     const handleLogin = async (event) => {
         event.preventDefault()
         try {
@@ -103,17 +101,17 @@ const App = () => {
     const toggleWatchlist = async (articleId) => {
         try {
             dispatch(toggleWatched(articleId))
-            //dispatch(setErrorMessage("Watchlist changed", 5))
         } catch (exception) {
             dispatch(setErrorMessage("Error: Toggle Watchlist Failed", 5))
         }
     }
 
+
     return (
         <div className='App'>
             <NavBar user={user} handleSignout={handleSignout} />
             {errorMessage && <Notifications message={errorMessage} />}
-            <ArticleFormModal />
+            <ArticleFormModal isEdit={isEdit} prevValues={prevValues} />
             <Routes>
                 <Route path='/Articles/:id' element={<Article handleAddWatchlist={toggleWatchlist} />} />
                 <Route path='/Articles' element={<ArticleContainer articles={articles} toggleWatchlist={toggleWatchlist} watchlist={watchlist} />} />
@@ -125,12 +123,7 @@ const App = () => {
                     username={username}
                     password={password} />} />
                 <Route path='/signup' element={<Signup handleCreateUser={handleCreateUser} />} />
-                <Route
-                    path='/Add'
-                    element={
-                        <AddArticleForm isEdit={false} />
-                    }
-                />
+
                 <Route path='/Users' element={<Users userList={userList} toggleWatchlist={toggleWatchlist} />} />
                 <Route path='/Search' element={<Search />} />
                 <Route path='/search/:query' element={<SearchResults toggleWatchlist={toggleWatchlist} />} />
