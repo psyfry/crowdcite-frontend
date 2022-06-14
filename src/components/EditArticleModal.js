@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setErrorMessage } from '../reducers/noticeReducer'
-import { createArticle } from '../reducers/articleReducer'
+import { editArticle } from '../reducers/articleReducer'
 
 import { TextField, Button } from '@mui/material'
 import Dialog from '@mui/material/Dialog';
@@ -13,26 +13,28 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import Tags from './Tags'
 import Stack from '@mui/material/Stack';
-import { closeDialog } from '../reducers/articleFormReducer'
+import { closeDialog, unsetEdit } from '../reducers/articleFormReducer'
 
-const ArticleFormModal = () => {
+const EditArticleModal = ({ id, prevTitle, prevAuthor, prevUrl, prevDescription, prevTags, prevDoi, prevPubDate, prevPublisher }) => {
     const open = useSelector((state) => state.articleDialog.isOpen)
 
-    const [ title, setTitle ] = useState('');
-    const [ author, setAuthor ] = useState('')
-    const [ url, setUrl ] = useState('https://')
-    const [ description, setDescription ] = useState('')
-    const [ doi, setDoi ] = useState('')
-    const [ publisher, setPublisher ] = useState('')
-    const [ pubDate, setPubDate ] = useState('')
-    const [ tags, setTags ] = useState([])
+    const [ title, setTitle ] = useState(prevTitle)
+    const [ author, setAuthor ] = useState(prevAuthor)
+    const [ url, setUrl ] = useState(prevUrl)
+    const [ description, setDescription ] = useState(prevDescription)
+    const [ doi, setDoi ] = useState(prevDoi)
+    const [ publisher, setPublisher ] = useState(prevPublisher)
+    const [ pubDate, setPubDate ] = useState(prevPubDate)
+    const [ tags, setTags ] = useState(prevTags)
     const [ tagValue, setTagValue ] = useState('')
 
     const inputFocusRef = useRef()
 
     const handleClose = () => {
+        dispatch(unsetEdit())
         dispatch(closeDialog())
     }
+
     const dispatch = useDispatch()
 
     const handleTagKeyPress = (e) => {
@@ -70,10 +72,10 @@ const ArticleFormModal = () => {
                 tags
             }
             try {
-                dispatch(createArticle(articleObj))
+                dispatch(editArticle(id, articleObj))
                 dispatch(
                     setErrorMessage(
-                        `${title} by ${author} added`,
+                        `Edit Successful`,
                         5
                     )
                 )
@@ -85,19 +87,21 @@ const ArticleFormModal = () => {
                 setPublisher('')
                 setPubDate('')
                 setTags([])
+                dispatch(unsetEdit())
                 dispatch(closeDialog())
             }
             catch (exception) {
                 dispatch(setErrorMessage(`Error: ${exception}`, 10))
             }
         } else {
-            dispatch(setErrorMessage('Error: Missing Required Fields', 10))
+            dispatch(setErrorMessage('Error: Missing Required Fields', 5))
         }
     }
+
+
     return (
         <Dialog open={open} onClose={handleClose} keepMounted>
-            <DialogTitle>Add Article</DialogTitle>
-
+            <DialogTitle>Edit Article</DialogTitle>
             <form onSubmit={handleSubmit}>
                 <DialogContent>
                     <Stack direction='column' spacing={.5}>
@@ -107,6 +111,7 @@ const ArticleFormModal = () => {
                             variant='outlined'
                             onChange={({ target }) => setTitle(target.value)}
                             value={title}
+                            placeholder={prevTitle}
                             autoFocus={true}
                         />
                         <br />
@@ -190,4 +195,4 @@ const ArticleFormModal = () => {
     )
 }
 
-export default ArticleFormModal
+export default EditArticleModal

@@ -1,6 +1,4 @@
 
-//* REFACTOR: Convert state into an object with tho following keys:
-//* {dialogOpen: bool, isEdit: bool }
 export const openDialog = () => {
     return (dispatch) => {
         dispatch({
@@ -18,12 +16,12 @@ export const closeDialog = () => {
     }
 }
 
-export const setEdit = () => {
+export const setEdit = (prevArr) => {
     return (dispatch) => {
-        /*         dispatch({
-                    type: 'SET_PREV_VALUES',
-                    data: prevArr
-                }) */
+        dispatch({
+            type: 'SET_PREV_VALUES',
+            data: prevArr
+        })
         dispatch({
             type: 'SET_EDIT',
             data: true
@@ -42,7 +40,7 @@ export const unsetEdit = () => {
     return (dispatch) => {
         dispatch({
             type: 'SET_PREV_VALUES',
-            data: []
+            data: {}
         })
         dispatch({
             type: 'UNSET_EDIT',
@@ -50,7 +48,7 @@ export const unsetEdit = () => {
         })
     }
 }
-const articleFormReducer = (state = { isOpen: false, isEdit: false, prevValues: [] }, action) => {
+const articleFormReducer = (state = { isOpen: false, isEdit: false, prevValues: {} }, action) => {
     switch (action.type) {
         case 'OPEN_DIALOG':
             return { isEdit: state.isEdit, isOpen: action.data, prevValues: state.prevValues }

@@ -29,11 +29,11 @@ export const editArticle = (id, content) => {
             type: 'EDIT_ARTICLE',
             data: edittedArticle
         })
-        /*         const articles = await articleService.getArticles()
-                dispatch({
-                    type: 'INIT_ARTICLES',
-                    data: articles
-                }) */
+        const articles = await articleService.getArticles()
+        dispatch({
+            type: 'INIT_ARTICLES',
+            data: articles
+        })
     }
 }
 export const toggleWatchlist = (id) => {

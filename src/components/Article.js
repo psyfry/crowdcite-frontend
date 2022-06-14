@@ -10,7 +10,7 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 //import * from '@mui/material/colors';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-//import EditSharpIcon from '@mui/icons-material/EditSharp';
+import EditSharpIcon from '@mui/icons-material/EditSharp';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 //import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
@@ -23,7 +23,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deleteArticle } from '../reducers/articleReducer';
 import { toggleWatched } from '../reducers/watchlistReducer'
 import { setErrorMessage } from '../reducers/noticeReducer'
-//import AddArticleForm from './AddArticleForm';
+//import ArticleFormModal from './ArticleFormModal';
+
 //import FlagIcon from '@mui/icons-material/Flag';
 //import FlagCircleIcon from '@mui/icons-material/FlagCircle';
 import { openDialog, setEdit, setPrevValues } from '../reducers/articleFormReducer';
@@ -59,10 +60,10 @@ export default function Article({ id, title, author, url, description, tags, com
         dispatch(deleteArticle(id))
     }
     const handleEditClick = () => {
-        const prevArr = [ id, title, author, url, description, tags, doi, pubDate, publisher ]
+        const prevArr = { id, title, author, url, description, tags, doi, pubDate, publisher }
         //handleEdit(prevArr)
         dispatch(setPrevValues(prevArr))
-        dispatch(setEdit())
+        dispatch(setEdit(prevArr))
         dispatch(openDialog())
     }
 
@@ -109,9 +110,9 @@ export default function Article({ id, title, author, url, description, tags, com
                 </IconButton>
                 {user.username === currentUser.username ? (
                     <>
-                        {/*<IconButton aria-label="Edit" onClick={handleEditClick}>
+                        <IconButton aria-label="Edit" onClick={handleEditClick}>
                             <EditSharpIcon />
-                </IconButton> */}
+                        </IconButton>
                         <IconButton aria-label="Delete" onClick={handleDelete}>
                             <DeleteIcon />
                         </IconButton>

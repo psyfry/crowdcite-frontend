@@ -15,7 +15,6 @@ import userService from './services/userService'
 import NavBar from './components/NavBar'
 import Home from './components/Home'
 import { Routes, Route, useNavigate } from 'react-router-dom'
-//import AddArticleForm from './components/AddArticleForm'
 //import Articles from './components/Articles'
 import Article from './components/Article'
 import Users from './components/Users'
@@ -29,6 +28,7 @@ import SearchResults from './components/SearchResults'
 import ArticleContainer from './components/ArticleContainer'
 import { Dashboard } from '@mui/icons-material'
 import ArticleFormModal from './components/ArticleFormModal'
+import EditArticleModal from './components/EditArticleModal'
 const App = () => {
     const articles = useSelector((state) => state.articles)
     const errorMessage = useSelector((state) => state.errorMessage)
@@ -37,9 +37,12 @@ const App = () => {
     const watchlist = useSelector((state) => state.watchlist)
     const [ username, setUsername ] = useState('')
     const [ password, setPassword ] = useState('')
-    const isEdit = useSelector((state) => state.articleDialog.isEdit)
     //const [ searchResults, setSeachResults ] = useState('')
+
+    const isEdit = useSelector((state) => state.articleDialog.isEdit)
     const prevValues = useSelector((state) => state.articleDialog.prevValues)
+
+
     const dispatch = useDispatch()
     let navigate = useNavigate()
 
@@ -111,7 +114,7 @@ const App = () => {
         <div className='App'>
             <NavBar user={user} handleSignout={handleSignout} />
             {errorMessage && <Notifications message={errorMessage} />}
-            <ArticleFormModal isEdit={isEdit} prevValues={prevValues} />
+            {isEdit ? <EditArticleModal id={prevValues.id} prevTitle={prevValues.title} prevAuthor={prevValues.author} prevDescription={prevValues.description} prevUrl={prevValues.url} prevDoi={prevValues.doi} prevPublisher={prevValues.publisher} prevPubDate={prevValues.pubDate} prevTags={prevValues.tags} /> : <ArticleFormModal />}
             <Routes>
                 <Route path='/Articles/:id' element={<Article handleAddWatchlist={toggleWatchlist} />} />
                 <Route path='/Articles' element={<ArticleContainer articles={articles} toggleWatchlist={toggleWatchlist} watchlist={watchlist} />} />
