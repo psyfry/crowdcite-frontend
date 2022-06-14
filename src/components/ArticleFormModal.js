@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setErrorMessage } from '../reducers/noticeReducer'
 import { createArticle, editArticle } from '../reducers/articleReducer'
 
-import { TextField, Button } from '@mui/material'
+import { TextField, Button, Typography } from '@mui/material'
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -18,7 +18,7 @@ import { closeDialog, unsetEdit } from '../reducers/articleFormReducer'
 const ArticleFormModal = ({ isEdit, prevValues }) => {
     const [ title, setTitle ] = useState('')
     const [ author, setAuthor ] = useState('')
-    const [ url, setUrl ] = useState('')
+    const [ url, setUrl ] = useState('https://')
     const [ description, setDescription ] = useState('')
     const [ doi, setDoi ] = useState('')
     const [ publisher, setPublisher ] = useState('')
@@ -33,11 +33,12 @@ const ArticleFormModal = ({ isEdit, prevValues }) => {
     const handleClose = () => {
         dispatch(closeDialog())
     }
-    console.log({ prevValues });
+    //console.log({ prevValues });
     const [ id, prevTitle, prevAuthor, prevUrl, prevDescription, prevTags, prevDoi, prevPubDate, prevPublisher ] = prevValues
     //console.log({ id });
     //console.log({ prevDoi });
-    /*     if (isEdit === true) {
+    /* setting state here causes infinite refreshes b/c this component is called on the App parent. Either use refs or memoization or move to a lower level like Article or Articles      
+    if (isEdit === true) {
             setTitle(prevTitle)
             setAuthor(prevAuthor)
             setUrl(prevUrl)
@@ -106,7 +107,7 @@ const ArticleFormModal = ({ isEdit, prevValues }) => {
                 }
                 setTitle('')
                 setAuthor('')
-                setUrl('')
+                setUrl('https://')
                 setDescription('')
                 setDoi('')
                 setPublisher('')
@@ -115,7 +116,6 @@ const ArticleFormModal = ({ isEdit, prevValues }) => {
                 dispatch(closeDialog())
                 dispatch(unsetEdit())
             } catch (exception) {
-                //dispatch(setErrorMessage('Error: Unhandled Exception', 10))
                 dispatch(setErrorMessage(`Error: ${exception}`, 10))
             }
         } else {
@@ -123,6 +123,9 @@ const ArticleFormModal = ({ isEdit, prevValues }) => {
         }
     }
 
+    if (isEdit && !prevValues) {
+        return null
+    }
 
     return (
         <Dialog open={open} onClose={handleClose} keepMounted>
@@ -131,6 +134,7 @@ const ArticleFormModal = ({ isEdit, prevValues }) => {
             <form onSubmit={handleSubmit}>
                 <DialogContent>
                     <Stack direction='column' spacing={.5}>
+                        {isEdit ? <Typography>Prev. Title: {prevTitle}</Typography> : <></>}
                         <TextField
                             id='title'
                             label='Title'
@@ -140,6 +144,7 @@ const ArticleFormModal = ({ isEdit, prevValues }) => {
                             autoFocus={true}
                         />
                         <br />
+                        {isEdit ? <Typography>Prev. Author: {prevAuthor}</Typography> : <></>}
                         <TextField
                             id='author'
                             label='Author'
@@ -148,6 +153,7 @@ const ArticleFormModal = ({ isEdit, prevValues }) => {
                             value={author}
                         />
                         <br />
+                        {isEdit ? <Typography>Prev. URL:{prevUrl}</Typography> : <></>}
                         <TextField
                             id='url'
                             label='URL'
@@ -156,6 +162,7 @@ const ArticleFormModal = ({ isEdit, prevValues }) => {
                             value={url}
                         />
                         <br />
+                        {isEdit ? <Typography>Prev. Description: {prevDescription}</Typography> : <></>}
                         <TextField
                             id='description'
                             label='Description'
@@ -167,6 +174,7 @@ const ArticleFormModal = ({ isEdit, prevValues }) => {
                             value={description}
                         />
                         <br />
+                        {isEdit ? <Typography>Prev. DOI: {prevDoi}</Typography> : <></>}
                         <TextField
                             id='DOI'
                             label='DOI'
@@ -175,6 +183,7 @@ const ArticleFormModal = ({ isEdit, prevValues }) => {
                             value={doi}
                         />
                         <br />
+                        {isEdit ? <Typography>Prev. Tags: {prevTags}</Typography> : <></>}
                         <Stack direction='row' spacing={1}><TextField
                             id='tags'
                             label='tags'
@@ -186,6 +195,7 @@ const ArticleFormModal = ({ isEdit, prevValues }) => {
                         </Stack>
                         <Stack direction='row' spacing={1}><Tags tags={tags} handleDelete={handleDeleteTag} isDeletable='true' /></Stack>
                         <br />
+                        {isEdit ? <Typography>Prev. Publisher: {prevPublisher}</Typography> : <></>}
                         <TextField
                             id='Publisher'
                             label='Publisher'
@@ -194,6 +204,7 @@ const ArticleFormModal = ({ isEdit, prevValues }) => {
                             value={publisher}
                         />
                         <br />
+                        {isEdit ? <Typography>Prev. Publication Date: {prevPubDate}</Typography> : <></>}
                         <TextField
                             id='pub-date'
                             label='Publication Date'

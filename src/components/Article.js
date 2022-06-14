@@ -10,11 +10,11 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 //import * from '@mui/material/colors';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import EditSharpIcon from '@mui/icons-material/EditSharp';
+//import EditSharpIcon from '@mui/icons-material/EditSharp';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
-import { Link } from '@mui/material';
+//import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
+//import { Link } from '@mui/material';
 import CommentBox from './CommentBox'
 import Tags from './Tags';
 import Divider from '@mui/material/Divider';
@@ -87,14 +87,8 @@ export default function Article({ id, title, author, url, description, tags, com
                         </Avatar>
                     </IconButton>
                 }
-                action={
-                    <IconButton aria-label="view article" href={`Articles`} >
-                        <ArrowCircleRightIcon />
-                    </IconButton>
-                }
                 title={title}
-
-                subheader={<Link href={url} underline='hover'>{url}</Link>}
+                subheader={<a href={url} target="_blank" rel="noreferrer" >{url}</a>}
             />
             <CardContent>
                 <Typography variant="body2" color="text.secondary">
@@ -115,9 +109,9 @@ export default function Article({ id, title, author, url, description, tags, com
                 </IconButton>
                 {user.username === currentUser.username ? (
                     <>
-                        <IconButton aria-label="Edit" onClick={handleEditClick}>
+                        {/*<IconButton aria-label="Edit" onClick={handleEditClick}>
                             <EditSharpIcon />
-                        </IconButton>
+                </IconButton> */}
                         <IconButton aria-label="Delete" onClick={handleDelete}>
                             <DeleteIcon />
                         </IconButton>

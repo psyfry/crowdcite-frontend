@@ -72,11 +72,11 @@ export const createComment = (id, comment) => {
             type: 'ADD_COMMENT',
             data: updatedArticle
         })
-        /*         const articles = await articleService.getArticles()
-                dispatch({
-                    type: 'INIT_ARTICLES',
-                    data: articles
-                }) */
+        const articles = await articleService.getArticles()
+        dispatch({
+            type: 'INIT_ARTICLES',
+            data: articles
+        })
     }
 }
 
