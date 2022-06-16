@@ -73,7 +73,7 @@ const ArticleFormModal = () => {
                 dispatch(createArticle(articleObj))
                 dispatch(
                     setErrorMessage(
-                        `${title} by ${author} added`,
+                        'success', `${title} by ${author} added`,
                         5
                     )
                 )
@@ -88,10 +88,10 @@ const ArticleFormModal = () => {
                 dispatch(closeDialog())
             }
             catch (exception) {
-                dispatch(setErrorMessage(`Error: ${exception}`, 10))
+                dispatch(setErrorMessage('error', `Error: ${exception}`, 10))
             }
         } else {
-            dispatch(setErrorMessage('Error: Missing Required Fields', 10))
+            dispatch(setErrorMessage('error', 'Error: Missing Required Fields', 10))
         }
     }
     return (

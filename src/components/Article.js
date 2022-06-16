@@ -42,7 +42,7 @@ const ExpandMore = styled((props) => {
     }),
 }));
 
-export default function Article({ id, title, author, url, description, tags, comments, doi, pubDate, publisher, displayName, avatarColor, user }) {
+export default function Article({ id, title, author, url, modificationDate, description, tags, comments, doi, pubDate, publisher, displayName, avatarColor, user }) {
     const [ expanded, setExpanded ] = React.useState(false);
     const currentUser = useSelector((state) => state.user)
     const watchlist = useSelector((state) => state.watchlist)
@@ -58,6 +58,7 @@ export default function Article({ id, title, author, url, description, tags, com
     const handleDelete = (event) => {
         event.preventDefault()
         dispatch(deleteArticle(id))
+        dispatch(setErrorMessage('success', "Entry Deleted", 8))
     }
     const handleEditClick = () => {
         const prevArr = { id, title, author, url, description, tags, doi, pubDate, publisher }
@@ -103,6 +104,7 @@ export default function Article({ id, title, author, url, description, tags, com
                     <Typography>DOI: {doi}</Typography>
                 </Box>
                 <Tags tags={tags} isDeletable='false' />
+                {modificationDate && <Typography>[Last Modified: {modificationDate}]</Typography>}
             </CardContent>
             <CardActions disableSpacing>
                 <IconButton aria-label="add to watchlist" onClick={handleAddWatchlist} id={id} >

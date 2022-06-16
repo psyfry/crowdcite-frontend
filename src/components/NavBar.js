@@ -10,12 +10,14 @@ import Container from '@mui/material/Container'
 import Button from '@mui/material/Button'
 //import Tooltip from '@mui/material/Tooltip'
 import MenuItem from '@mui/material/MenuItem'
-
-import { useDispatch } from 'react-redux'
+import Notifications from './Notifications'
+import { setErrorMessage } from '../reducers/noticeReducer'
+import { useDispatch, useSelector } from 'react-redux'
 import { openDialog } from '../reducers/articleFormReducer'
 const NavBar = ({ user, handleSignout }) => {
     const pages = [ 'Articles', 'Watchlist', 'Users' ]
     const [ anchorElNav, setAnchorElNav ] = React.useState(null)
+    const errorMessage = useSelector((state) => state.errorMessage)
     const dispatch = useDispatch()
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget)
@@ -169,6 +171,7 @@ const NavBar = ({ user, handleSignout }) => {
                     </Box>
                 </Toolbar>
             </Container>
+            {errorMessage && <Notifications type={errorMessage.type} message={errorMessage.message} />}
         </AppBar >
     )
 }

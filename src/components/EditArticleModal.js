@@ -74,7 +74,7 @@ const EditArticleModal = ({ id, prevTitle, prevAuthor, prevUrl, prevDescription,
             try {
                 dispatch(editArticle(id, articleObj))
                 dispatch(
-                    setErrorMessage(
+                    setErrorMessage('success',
                         `Edit Successful`,
                         5
                     )
@@ -91,10 +91,10 @@ const EditArticleModal = ({ id, prevTitle, prevAuthor, prevUrl, prevDescription,
                 dispatch(closeDialog())
             }
             catch (exception) {
-                dispatch(setErrorMessage(`Error: ${exception}`, 10))
+                dispatch(setErrorMessage('error', `Error: ${exception}`, 10))
             }
         } else {
-            dispatch(setErrorMessage('Error: Missing Required Fields', 5))
+            dispatch(setErrorMessage('error', 'Error: Missing Required Fields', 5))
         }
     }
 

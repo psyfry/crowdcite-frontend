@@ -22,7 +22,7 @@ const ExpandMore = styled((props) => {
     }),
 }));
 
-export default function UserCard({ id, username, firstName, lastName, articles, avatarColor, displayName }) {
+export default function UserCard({ username, firstName, lastName, articles, avatarColor, displayName }) {
     const [ expanded, setExpanded ] = React.useState(false);
     const handleExpandClick = () => {
         setExpanded(!expanded);

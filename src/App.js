@@ -21,7 +21,6 @@ import User from './components/User'
 import Login from './components/Login'
 import Search from './components/Search'
 import Watchlist from './components/Watchlist'
-import Notifications from './components/Notifications'
 import Signup from './components/Signup'
 import SearchResults from './components/SearchResults'
 import ArticleContainer from './components/ArticleContainer'
@@ -30,7 +29,6 @@ import ArticleFormModal from './components/ArticleFormModal'
 import EditArticleModal from './components/EditArticleModal'
 const App = () => {
     const articles = useSelector((state) => state.articles)
-    const errorMessage = useSelector((state) => state.errorMessage)
     const user = useSelector((state) => state.user)
     const userList = useSelector((state) => state.userList)
     const watchlist = useSelector((state) => state.watchlist)
@@ -76,25 +74,26 @@ const App = () => {
             setUsername('')
             setPassword('')
             navigate('/Articles', { replace: true })
+            dispatch(setErrorMessage('success', 'Login Successful', 8))
         } catch (exception) {
-            dispatch(setErrorMessage('Error: Invalid Credentials', 10))
+            dispatch(setErrorMessage('error', 'Error: Invalid Credentials', 8))
         }
     }
 
     const handleCreateUser = async (newUser) => {
         try {
             await userService.createUser(newUser)
-            dispatch(setErrorMessage('Success! User Created. You can now login', 10))
+            dispatch(setErrorMessage('success', 'Success! User Created. You can now login', 8))
 
         } catch (exception) {
-            dispatch(setErrorMessage('Error: Registration failed', 10))
+            dispatch(setErrorMessage('error', 'Error: Registration failed', 8))
         }
         navigate('/Login', { replace: true })
     }
     const handleSignout = () => {
         dispatch(signOut())
         window.localStorage.removeItem('articleListUser')
-        dispatch(setErrorMessage('Signed out', 5))
+        dispatch(setErrorMessage('info', 'Signed out', 10))
         setUsername('')
         setPassword('')
         navigate('/', { replace: true })
@@ -104,7 +103,7 @@ const App = () => {
         try {
             dispatch(toggleWatched(articleId))
         } catch (exception) {
-            dispatch(setErrorMessage("Error: Toggle Watchlist Failed", 5))
+            dispatch(setErrorMessage('error', "Error: Toggle Watchlist Failed", 8))
         }
     }
 
@@ -112,7 +111,6 @@ const App = () => {
     return (
         <div className='App'>
             <NavBar user={user} handleSignout={handleSignout} />
-            {errorMessage && <Notifications message={errorMessage} />}
             {isEdit ? <EditArticleModal id={prevValues.id} prevTitle={prevValues.title} prevAuthor={prevValues.author} prevDescription={prevValues.description} prevUrl={prevValues.url} prevDoi={prevValues.doi} prevPublisher={prevValues.publisher} prevPubDate={prevValues.pubDate} prevTags={prevValues.tags} /> : <ArticleFormModal />}
             <Routes>
                 <Route path='/Articles/:id' element={<Article handleAddWatchlist={toggleWatchlist} />} />
