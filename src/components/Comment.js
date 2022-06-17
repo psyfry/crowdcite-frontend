@@ -5,10 +5,9 @@ import CardHeader from '@mui/material/CardHeader';
 import Avatar from '@mui/material/Avatar';
 import Divider from '@mui/material/Divider';
 import { CardContent, Typography } from '@mui/material';
-//import { red, blue, green, purple } from '@mui/material/colors';
+
 const Comment = ({ comment }) => {
     const formatDate = new Intl.DateTimeFormat('en-US').format(new Date(comment.timestamp))
-    //console.log(formatDate);
     return <Card sx={{ maxWidth: 400 }}>
         <CardHeader
             avatar={

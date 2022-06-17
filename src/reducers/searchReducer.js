@@ -8,7 +8,14 @@ export const setSearchQuery = (tag) => {
         })
     }
 }
-
+export const setFilterQuery = (tag) => {
+    return async (dispatch) => {
+        dispatch({
+            type: 'SET_SEARCH_QUERY',
+            data: results
+        })
+    }
+}
 const searchReducer = (state = [], action) => {
     switch (action.type) {
         case 'SET_SEARCH_QUERY':

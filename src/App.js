@@ -127,7 +127,7 @@ const App = () => {
                 <Route path='/Users' element={<Users userList={userList} toggleWatchlist={toggleWatchlist} />} />
                 <Route path='/Search' element={<Search />} />
                 <Route path='/search/:query' element={<SearchResults toggleWatchlist={toggleWatchlist} />} />
-                <Route path='/' element={<Home />} />
+                <Route path='/' element={<Home articles={articles} user={user} toggleWatchlist={toggleWatchlist} watchlist={watchlist} />} />
             </Routes>
         </div>
     )
