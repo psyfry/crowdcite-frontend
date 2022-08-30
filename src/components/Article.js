@@ -79,8 +79,8 @@ export default function Article({ id, title, author, url, modificationDate, desc
             <CardHeader
                 avatar={
                     <IconButton aria-label='user' >
-                        <Avatar sx={{ bgcolor: avatarColor }} aria-label="article contributor">
-                            <Typography sx={{ color: 'white' }}>{displayName}</Typography>
+                        <Avatar sx={{ bgcolor: user.avatarColor }} aria-label={`Submission by: ${user.username}`}>
+                            <Typography sx={{ color: 'white' }}>{user.displayName}</Typography>
                         </Avatar>
                     </IconButton>
                 }
@@ -110,7 +110,7 @@ export default function Article({ id, title, author, url, modificationDate, desc
                 {modificationDate && <Typography variant="overline">Last Modified: {modificationDate}</Typography>}
             </CardContent>
             <CardActions disableSpacing>
-                <IconButton aria-label="add to watchlist" onClick={toggleWatchlist} id={id} >
+                <IconButton aria-label="add to watchlist" onClick={toggleWatchlist} id={id}>
                     <FavoriteIcon color={watchColor} />
                 </IconButton>
                 {user.username === currentUser.username ? (

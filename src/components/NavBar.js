@@ -8,10 +8,8 @@ import Menu from '@mui/material/Menu'
 import MenuIcon from '@mui/icons-material/Menu'
 import Container from '@mui/material/Container'
 import Button from '@mui/material/Button'
-//import Tooltip from '@mui/material/Tooltip'
 import MenuItem from '@mui/material/MenuItem'
 import Notifications from './Notifications'
-import { setErrorMessage } from '../reducers/noticeReducer'
 import { useDispatch, useSelector } from 'react-redux'
 import { openDialog } from '../reducers/articleFormReducer'
 const NavBar = ({ user, handleSignout }) => {
@@ -28,7 +26,7 @@ const NavBar = ({ user, handleSignout }) => {
 
     return (
         <AppBar position='sticky'>
-            <Container maxWidth='xl'>
+            <Container minWidth='sm' maxWidth='xl'>
                 <Toolbar disableGutters>
                     <Typography
                         variant='h6'

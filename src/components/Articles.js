@@ -8,11 +8,11 @@ import Stack from '@mui/material/Stack';
 const Articles = ({ articles, toggleWatchlist }) => {
     //const dispatch = useDispatch()
 
-    const articleList = articles.map(x => x ? <Article key={x.id} id={x.id} title={x.title} author={x.author} url={x.url} description={x.description} comments={x.comments} doi={x.doi} pubDate={x.pubDate} publisher={x.publisher} tags={x.tags} displayName={x.displayName} toggleWatchlist={toggleWatchlist} avatarColor={x.avatarColor} user={x.user} modificationDate={x.modificationDate} /> : (<Skeleton variant="rectangular" width={210} height={118} />))
+    const articleList = articles.map(x => <Article key={x.id} id={x.id} title={x.title} author={x.author} url={x.url} description={x.description} comments={x.comments} doi={x.doi} pubDate={x.pubDate} publisher={x.publisher} tags={x.tags} displayName={x.displayName} toggleWatchlist={toggleWatchlist} avatarColor={x.avatarColor} user={x.user} modificationDate={x.modificationDate} />)
     return (
         <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
             <Stack direction='column' spacing={1}>
-                {articleList}
+                {articleList ? articleList : <Skeleton variant="rectangular" width={210} height={118} />}
             </Stack>
         </Box>
     )

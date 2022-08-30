@@ -12,7 +12,7 @@ export const setFilterQuery = (tag) => {
     return async (dispatch) => {
         dispatch({
             type: 'SET_SEARCH_QUERY',
-            data: results
+            data: tag
         })
     }
 }
